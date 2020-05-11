@@ -10,7 +10,7 @@
 
 #include <CoreFoundation/CoreFoundation.h>
 
-void HandleSIGTERMFromRunLoop(CFFileDescriptorRef f, CFOptionFlags callBackTypes, void *info);
-void InstallHandleSIGTERMFromRunLoop();
+void HandleSignalFromRunLoop(CFFileDescriptorRef f, CFOptionFlags callBackTypes, void *info);
+void InstallHandleSignalFromRunLoop();
 
 #endif /* SignalHandler_hpp */
