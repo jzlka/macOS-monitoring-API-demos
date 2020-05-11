@@ -6,6 +6,7 @@
 //
 
 #include <sys/event.h>
+#include <iostream>
 
 #include "SignalHandler.hpp"
 
@@ -83,5 +84,6 @@ void HandleSIGTERMFromRunLoop(CFFileDescriptorRef f, CFOptionFlags callBackTypes
     #pragma unused(callBackTypes)
     #pragma unused(info)
 
+    std::cerr << "Signal received! Exiting." << std::endl;
     CFRunLoopStop(CFRunLoopGetCurrent());
 }
