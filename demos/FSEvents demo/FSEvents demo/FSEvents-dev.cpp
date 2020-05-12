@@ -75,6 +75,7 @@ struct kfs_event_arg_t {
         char    *str;
         void    *ptr;
         int32_t  int32;
+        int64_t  int64;
         dev_t    dev;
         ino_t    ino;
         int32_t  mode;
@@ -149,6 +150,12 @@ int main()
     // https://stackoverflow.com/questions/6533373/is-sigsegv-delivered-to-each-thread/6533431#6533431
     // https://stackoverflow.com/questions/20304720/catching-signals-such-as-sigsegv-and-sigfpe-in-multithreaded-program
     
+    const char* demoName = "FSEvents-dev";
+    const std::string demoPath = "/tmp/" + std::string(demoName) + "-demo";
+    
+    std::cout << "(" << demoName << ") Hello, World!\n";
+    std::cout << "Path of interest: " << "All the events!" << std::endl << std::endl;
+    
     int fsed, cloned_fsed;
     // Open the device
     fsed = open ("/dev/fsevents", O_RDONLY);
@@ -214,7 +221,7 @@ int main()
             }
             
             if (kfse->type < FSE_MAX_EVENTS && kfse->type >= -1) {
-                std::cout << "#Event\n" << "\ttype = " << g_kfseNames.at(kfse->type) << "\n\tpid = " << getProcName(kfse->pid) << std::endl;
+                std::cout << "#Event\n" << "\ttype = " << g_kfseNames.at(kfse->type) << "\n\tpid = " << kfse->pid << " (" << (getProcName(kfse->pid) ? getProcName(kfse->pid) : "?") << ")" << std::endl;
             }
             
             std::cout << "\t#Details\n\tType\t\tLength\tData" << std::endl;
@@ -225,7 +232,7 @@ int main()
                 i++;
                 
                 if (kea->type == FSE_ARG_DONE) { // no more arguments
-                    std::cout << "\t" << "FSE_ARG_DONE\t" << kea->type;
+                    std::cout << "\t" << "FSE_ARG_DONE\t" << kea->type << std::endl;
                     off += sizeof(kea->type);
                     break;
                 }
@@ -246,6 +253,9 @@ int main()
                         break;
                     case FSE_ARG_INT32:
                         std::cout << "int32 = " << kea->data.int32 << std::endl;
+                        break;
+                    case FSE_ARG_INT64:
+                        std::cout << "int64 = " << kea->data.int64 << std::endl;
                         break;
                     case FSE_ARG_RAW:       // a void pointer
                         std::cout << "ptr = " << std::hex << "0x" << (long)(kea->data.ptr) << std::dec << std::endl;
@@ -275,7 +285,7 @@ int main()
                         
                         strmode(va_mode, fileModeString);
                         va_type = iftovt_tab[(va_type * S_IFMT) >> 12];
-                        std::cout << "mode = " << fileModeString << "(" << std::hex << kea->data.mode << ", vnode type " << std::dec << ((va_type < VTYPE_MAX) ? vtypeNames[va_type] : "?") << std::endl;
+                        std::cout << "mode = " << fileModeString << "(" << std::hex << kea->data.mode << ", vnode type " << std::dec << ((va_type < VTYPE_MAX) ? vtypeNames[va_type] : "?") << ")" << std::endl;
                         break;
                     }
                     default:

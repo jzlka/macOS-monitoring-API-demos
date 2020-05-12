@@ -14,4 +14,10 @@
    <FileRef
       location = "container:FSEvents demo/FSEvents demo.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:kqueue demo/kqueue demo.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:DiskArbitration demo/DiskArbitration demo.xcodeproj">
+   </FileRef>
 </Workspace>
