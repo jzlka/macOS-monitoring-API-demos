@@ -3,7 +3,7 @@
 //  IOKit demo
 //
 //  Created by Jozef on 09/08/2019.
-//  Copyright © 2010 Jozef Zuzelka. All rights reserved.
+//  Copyright © 2019 Jozef Zuzelka. All rights reserved.
 //
 // Source: OS X and iOS Kernel Programming
 
@@ -200,7 +200,6 @@ int main(int argc, const char * argv[])
     std::cout << "Point of interest: " << "All the external USB devices!" << std::endl << std::endl;
     
     IOKitMonitor iom;
-
     iom.Init();
     
     CFRunLoopRun();
