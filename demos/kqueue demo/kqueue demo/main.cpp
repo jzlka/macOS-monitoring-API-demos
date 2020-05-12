@@ -32,7 +32,7 @@ int main()
     const std::string demoPath = "/tmp/" + std::string(demoName) + "-demo";
     
     std::cout << "(" << demoName << ") Hello, World!\n";
-    std::cout << "Path of interest: " << demoPath << std::endl << std::endl;
+    std::cout << "Point of interest: " << demoPath << std::endl << std::endl;
     
     /* Open a kernel queue. */
     int kq = kqueue();

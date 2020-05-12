@@ -67,7 +67,7 @@ int main() {
     const std::string demoPath = "/tmp/" + std::string(demoName) + "-demo";
     
     std::cout << "(" << demoName << ") Hello, World!\n";
-    std::cout << "Path of interest: " << demoPath << std::endl << std::endl;
+    std::cout << "Point of interest: " << demoPath << std::endl << std::endl;
     
     // Init source paths to watch
     CFStringRef path  = CFStringCreateWithCString(kCFAllocatorDefault, demoPath.c_str(), kCFStringEncodingUTF8);

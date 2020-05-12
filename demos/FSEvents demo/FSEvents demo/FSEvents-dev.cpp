@@ -154,7 +154,7 @@ int main()
     const std::string demoPath = "/tmp/" + std::string(demoName) + "-demo";
     
     std::cout << "(" << demoName << ") Hello, World!\n";
-    std::cout << "Path of interest: " << "All the events!" << std::endl << std::endl;
+    std::cout << "Point of interest: " << "All the events!" << std::endl << std::endl;
     
     int fsed, cloned_fsed;
     // Open the device
