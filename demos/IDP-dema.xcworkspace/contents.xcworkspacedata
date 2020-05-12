@@ -20,4 +20,7 @@
    <FileRef
       location = "group:DiskArbitration demo/DiskArbitration demo.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:IOKit demo/IOKit demo.xcodeproj">
+   </FileRef>
 </Workspace>

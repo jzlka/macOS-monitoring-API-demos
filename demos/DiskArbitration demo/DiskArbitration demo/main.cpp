@@ -65,7 +65,7 @@ int main()
     const std::string demoPath = "/tmp/" + std::string(demoName) + "-demo";
     
     std::cout << "(" << demoName << ") Hello, World!\n";
-    std::cout << "Point of interest: " << "All the external devices!" << std::endl << std::endl;
+    std::cout << "Point of interest: " << "All the external USB devices!" << std::endl << std::endl;
     
     
     DASessionRef session = DASessionCreate(kCFAllocatorDefault);
