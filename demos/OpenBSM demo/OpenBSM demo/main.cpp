@@ -9,22 +9,11 @@
 
 #include <iostream>
 #include <atomic>
+#include <unistd.h> // geteuid
 #include <bsm/libbsm.h>
 #include <sys/ioctl.h>
-#include <libgen.h>
-#include <sys/syslimits.h>
-
-#include <stdio.h>
-#include <stdlib.h>
 #include <security/audit/audit_ioctl.h>
-#include <stdbool.h>
-#include <string.h>
-#include <errno.h>
-#include <libproc.h>
-#include <pwd.h>
-#include <unistd.h>
-#include <signal.h>
-#include <time.h>
+
 
 std::atomic<bool> g_shouldStop {false};
 
@@ -145,10 +134,14 @@ void readPrintToken(FILE* auditFile)
             break;
         }
         
-        au_print_flags_tok(stdout, &token, ":", AU_OFLAG_XML);
+        char* dlmtr = "\n";
+        au_print_flags_tok(stdout, &token, dlmtr, AU_OFLAG_XML);
+        std::cout << std::endl;
         processedLength += token.len;
         recordBalance -= token.len;
     }
+    std::cout << std::endl;
+    std::cout << std::endl;
     free(buffer);
 }
 
