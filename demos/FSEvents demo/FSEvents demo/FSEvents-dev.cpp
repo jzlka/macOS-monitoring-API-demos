@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <map>
+#include <atomic>
 
 #include <fcntl.h>        // O_RDONLY
 #include <unistd.h>       // geteuid, read, close
@@ -22,11 +23,13 @@
 #include <pwd.h>
 #include <grp.h>
 
+std::atomic<bool> g_shouldStop {false};
+
 void signalHandler(int signum)
 {
     // Not safe, but whatever
     std::cerr << "Interrupt signal (" << signum << ") received, exiting." << std::endl;
-    exit(signum);
+    g_shouldStop = true;
 }
 
 #define BUFSIZE 1024 *1024
@@ -203,7 +206,7 @@ int main()
     u_int32_t is_fse_arg_vnode = 0;
     char buf[BUFSIZE];
     // And now we simply read, ad infinitum (aut nauseam)
-    while ((rc = read (cloned_fsed, buf, BUFSIZE)) > 0) { // event-processing loop
+    while ((rc = read (cloned_fsed, buf, BUFSIZE)) > 0 && !g_shouldStop) { // event-processing loop
         // rc returns the count of bytes for one or more events:
         int off = 0;
 

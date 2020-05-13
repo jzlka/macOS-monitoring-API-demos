@@ -10,6 +10,7 @@
 // https://developer.apple.com/library/archive/samplecode/FileNotification/Introduction/Intro.html
 
 #include <iostream>
+#include <atomic>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,8 +27,28 @@
  
 char *flagstring(int flags);
  
+std::atomic<bool> g_shouldStop {false};
+
+void signalHandler(int signum)
+{
+ // Not safe, but whatever
+ std::cerr << "Interrupt signal (" << signum << ") received, exiting." << std::endl;
+ g_shouldStop = true;
+}
+
 int main()
 {
+    // No runloop, no problem
+    signal(SIGINT, signalHandler);
+    signal(SIGTERM, signalHandler);
+    signal(SIGABRT, signalHandler);
+    signal(SIGPIPE, SIG_IGN);
+    //signal(SIGSEGV, signalHandler); // thread specific, see
+    // https://stackoverflow.com/questions/16204271/about-catching-the-sigsegv-in-multithreaded-environment
+    // https://stackoverflow.com/questions/6533373/is-sigsegv-delivered-to-each-thread/6533431#6533431
+    // https://stackoverflow.com/questions/20304720/catching-signals-such-as-sigsegv-and-sigfpe-in-multithreaded-program
+    
+    
     const char* demoName = "kqueue";
     const std::string demoPath = "/tmp/" + std::string(demoName) + "-demo";
     
@@ -75,7 +96,7 @@ int main()
     int num_files = 1;
     int continue_loop = 40; /* Monitor for twenty seconds. */
     struct kevent event_data[NUM_EVENT_SLOTS];
-    while (--continue_loop) {
+    while (--continue_loop && !g_shouldStop) {
         int event_count = kevent(kq, events_to_monitor, NUM_EVENT_SLOTS, event_data, num_files, &timeout);
         if ((event_count < 0) || (event_data[0].flags == EV_ERROR)) {
             /* An error occurred. */

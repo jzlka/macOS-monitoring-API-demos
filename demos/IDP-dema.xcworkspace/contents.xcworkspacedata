@@ -23,4 +23,7 @@
    <FileRef
       location = "group:IOKit demo/IOKit demo.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:OpenBSM demo/OpenBSM demo.xcodeproj">
+   </FileRef>
 </Workspace>
