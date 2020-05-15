@@ -197,7 +197,7 @@ int main(int argc, const char * argv[])
     const std::string demoPath = "/tmp/" + std::string(demoName) + "-demo";
     
     std::cout << "(" << demoName << ") Hello, World!\n";
-    std::cout << "Point of interest: " << "All the external USB devices!" << std::endl << std::endl;
+    std::cout << "Point of interest: " << "All the external USB devices!\n" << std::endl;
     
     IOKitMonitor iom;
     iom.Init();

@@ -17,7 +17,6 @@
 #include <fcntl.h>        // O_RDONLY
 #include <unistd.h>       // geteuid, read, close
 #include <sys/ioctl.h>    // for _IOW, a macro required by FSEVENTS_CLONE
-//#include <sys/types.h>
 #include <sys/sysctl.h>   // for sysctl, KERN_PROC, etc.
 #include "fsevents.h"     // copied from xnu//bsd/sys/fsevents.h
 #include <pwd.h>

@@ -1,6 +1,6 @@
 //
 //  main.cpp
-//  kqueue demo
+//  kevent demo
 //
 //  Created by Jozef on 12/05/2020.
 //  Copyright © 2020 Jozef Zuzelka. All rights reserved.
@@ -49,7 +49,7 @@ int main()
     // https://stackoverflow.com/questions/20304720/catching-signals-such-as-sigsegv-and-sigfpe-in-multithreaded-program
     
     
-    const char* demoName = "kqueue";
+    const char* demoName = "kevent";
     const std::string demoPath = "/tmp/" + std::string(demoName) + "-demo";
     
     std::cout << "(" << demoName << ") Hello, World!\n";

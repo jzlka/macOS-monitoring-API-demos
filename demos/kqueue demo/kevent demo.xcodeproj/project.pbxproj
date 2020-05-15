@@ -23,7 +23,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		09F7F8B4246AC8EC00BB0662 /* kqueue demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "kqueue demo"; sourceTree = BUILT_PRODUCTS_DIR; };
+		09F7F8B4246AC8EC00BB0662 /* kevent demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "kevent demo"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09F7F8B7246AC8EC00BB0662 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -41,7 +41,7 @@
 		09F7F8AB246AC8EC00BB0662 = {
 			isa = PBXGroup;
 			children = (
-				09F7F8B6246AC8EC00BB0662 /* kqueue demo */,
+				09F7F8B6246AC8EC00BB0662 /* kevent demo */,
 				09F7F8B5246AC8EC00BB0662 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,25 +49,25 @@
 		09F7F8B5246AC8EC00BB0662 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				09F7F8B4246AC8EC00BB0662 /* kqueue demo */,
+				09F7F8B4246AC8EC00BB0662 /* kevent demo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		09F7F8B6246AC8EC00BB0662 /* kqueue demo */ = {
+		09F7F8B6246AC8EC00BB0662 /* kevent demo */ = {
 			isa = PBXGroup;
 			children = (
 				09F7F8B7246AC8EC00BB0662 /* main.cpp */,
 			);
-			path = "kqueue demo";
+			path = "kevent demo";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		09F7F8B3246AC8EC00BB0662 /* kqueue demo */ = {
+		09F7F8B3246AC8EC00BB0662 /* kevent demo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 09F7F8BB246AC8EC00BB0662 /* Build configuration list for PBXNativeTarget "kqueue demo" */;
+			buildConfigurationList = 09F7F8BB246AC8EC00BB0662 /* Build configuration list for PBXNativeTarget "kevent demo" */;
 			buildPhases = (
 				09F7F8B0246AC8EC00BB0662 /* Sources */,
 				09F7F8B1246AC8EC00BB0662 /* Frameworks */,
@@ -77,9 +77,9 @@
 			);
 			dependencies = (
 			);
-			name = "kqueue demo";
+			name = "kevent demo";
 			productName = "kqueue demo";
-			productReference = 09F7F8B4246AC8EC00BB0662 /* kqueue demo */;
+			productReference = 09F7F8B4246AC8EC00BB0662 /* kevent demo */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -96,7 +96,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 09F7F8AF246AC8EC00BB0662 /* Build configuration list for PBXProject "kqueue demo" */;
+			buildConfigurationList = 09F7F8AF246AC8EC00BB0662 /* Build configuration list for PBXProject "kevent demo" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -109,7 +109,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				09F7F8B3246AC8EC00BB0662 /* kqueue demo */,
+				09F7F8B3246AC8EC00BB0662 /* kevent demo */,
 			);
 		};
 /* End PBXProject section */
@@ -258,7 +258,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		09F7F8AF246AC8EC00BB0662 /* Build configuration list for PBXProject "kqueue demo" */ = {
+		09F7F8AF246AC8EC00BB0662 /* Build configuration list for PBXProject "kevent demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				09F7F8B9246AC8EC00BB0662 /* Debug */,
@@ -267,7 +267,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		09F7F8BB246AC8EC00BB0662 /* Build configuration list for PBXNativeTarget "kqueue demo" */ = {
+		09F7F8BB246AC8EC00BB0662 /* Build configuration list for PBXNativeTarget "kevent demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				09F7F8BC246AC8EC00BB0662 /* Debug */,

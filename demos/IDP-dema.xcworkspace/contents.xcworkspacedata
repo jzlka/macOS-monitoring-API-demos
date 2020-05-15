@@ -12,18 +12,18 @@
       </FileRef>
    </Group>
    <FileRef
-      location = "container:FSEvents demo/FSEvents demo.xcodeproj">
+      location = "group:/Volumes/Data/Skola/FIT VUT/12.semester/IDP/kod/demos/kqueue demo/kevent demo.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:kqueue demo/kqueue demo.xcodeproj">
+      location = "container:FSEvents demo/FSEvents demo.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:DiskArbitration demo/DiskArbitration demo.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:IOKit demo/IOKit demo.xcodeproj">
+      location = "group:OpenBSM demo/OpenBSM demo.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:OpenBSM demo/OpenBSM demo.xcodeproj">
+      location = "group:IOKit demo/IOKit demo.xcodeproj">
    </FileRef>
 </Workspace>
