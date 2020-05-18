@@ -4,6 +4,22 @@
    <Group
       location = "group:Common"
       name = "Common">
+      <Group
+         location = "group:Tools"
+         name = "Tools">
+         <FileRef
+            location = "group:Tools-ES.mm">
+         </FileRef>
+         <FileRef
+            location = "group:Tools-ES.hpp">
+         </FileRef>
+         <FileRef
+            location = "group:Tools.mm">
+         </FileRef>
+         <FileRef
+            location = "group:Tools.hpp">
+         </FileRef>
+      </Group>
       <FileRef
          location = "group:SignalHandler.cpp">
       </FileRef>
@@ -12,7 +28,7 @@
       </FileRef>
    </Group>
    <FileRef
-      location = "group:/Volumes/Data/Skola/FIT VUT/12.semester/IDP/kod/demos/kqueue demo/kevent demo.xcodeproj">
+      location = "group:kevent demo/kevent demo.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:FSEvents demo/FSEvents demo.xcodeproj">
@@ -25,5 +41,8 @@
    </FileRef>
    <FileRef
       location = "group:IOKit demo/IOKit demo.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:ESF demo/ESF demo.xcodeproj">
    </FileRef>
 </Workspace>
