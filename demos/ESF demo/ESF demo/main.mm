@@ -150,10 +150,8 @@ std::vector<const std::string> pathsFromEvent(const es_message_t *msg)
             eventPaths.push_back(to_string(msg->event.unlink.target->path));
             break;
         case ES_EVENT_TYPE_NOTIFY_WRITE:
-        {
             eventPaths.push_back(to_string(msg->event.write.target->path));
             break;
-        }
         default:
             break;
     }

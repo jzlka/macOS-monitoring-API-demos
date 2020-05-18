@@ -4,7 +4,7 @@
 //
 //  Created by Jozef on 18/05/2020.
 //
-// TODO: NOT ALL ES TYPES SUPPORTED YET !!!
+// TODO: NOT ALL ES TYPES ARE SUPPORTED YET !!!
 // Inspired by: https://gist.github.com/Omar-Ikram/8e6721d8e83a3da69b31d4c2612a68ba/
 
 #include <iostream>
