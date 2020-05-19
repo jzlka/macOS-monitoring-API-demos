@@ -148,7 +148,7 @@ std::ostream & operator << (std::ostream &out, const es_event_close_t &event)
 
 std::ostream & operator << (std::ostream &out, const es_event_create_t &event)
 {
-    out << std::endl << "event.create.destination_type: " << g_destinationTypeToStrMap.at(event.destination_type);
+    out << "event.create.destination_type: " << g_destinationTypeToStrMap.at(event.destination_type);
     if (event.destination_type == ES_DESTINATION_TYPE_EXISTING_FILE) {
         out << std::endl << "event.create.destination.existing_file:\n" << event.destination.existing_file;
     } else {
@@ -197,7 +197,7 @@ std::ostream & operator << (std::ostream &out, const es_event_mount_t &event)
 
 std::ostream & operator << (std::ostream &out, const es_event_open_t &event)
 {
-    out << "event.open.fflag: " << std::hex << event.fflag << std::dec;
+    out << "event.open.fflag: " << fflagstostr(event.fflag);
     out << std::endl << event.file;
     return out;
 }
@@ -275,7 +275,7 @@ std::ostream & operator << (std::ostream &out, const es_event_kextunload_t &even
 // MARK: ES Types
 std::ostream & operator << (std::ostream &out, const es_message_t *msg)
 {
-    out << "--- EVENT MESSAGE ----";
+    out << std::endl << "--- EVENT MESSAGE ----";
     out << std::endl << "event_type: " << g_eventTypeToStrMap.at(msg->event_type) << " (" << msg->event_type << ")";
      // Note: Message structure could change in future versions
     out << std::endl << "version: " << msg->version;
@@ -298,38 +298,71 @@ std::ostream & operator << (std::ostream &out, const es_message_t *msg)
 
      // Type specific logging
     switch(msg->event_type) {
+        // Process
         case ES_EVENT_TYPE_AUTH_EXEC:
-            out << msg->event.exec << std::endl;
+            out << msg->event.exec;
             break;
         case ES_EVENT_TYPE_NOTIFY_EXIT:
-            out << msg->event.exit << std::endl;
+            out << msg->event.exit;
             break;
-        case ES_EVENT_TYPE_AUTH_OPEN:
-            out << msg->event.open;
+        case ES_EVENT_TYPE_NOTIFY_FORK:
+            out << msg->event.fork;
             break;
-        case ES_EVENT_TYPE_AUTH_RENAME:
-            out << msg->event.rename;
+        // File System
+        case ES_EVENT_TYPE_NOTIFY_ACCESS:
+            out << msg->event.access;
             break;
-        case ES_EVENT_TYPE_AUTH_UNLINK:
-            out << msg->event.unlink;
+        case ES_EVENT_TYPE_AUTH_CLONE:
+            out << msg->event.clone;
             break;
-        case ES_EVENT_TYPE_NOTIFY_EXCHANGEDATA:
-            out << msg->event.exchangedata;
-            break;
-        case ES_EVENT_TYPE_NOTIFY_WRITE:
-            out << msg->event.write;
-            break;
-        case ES_EVENT_TYPE_AUTH_TRUNCATE:
-            out << msg->event.truncate;
+        case ES_EVENT_TYPE_NOTIFY_CLOSE:
+            out << msg->event.close;
             break;
         case ES_EVENT_TYPE_AUTH_CREATE:
             out << msg->event.create;
             break;
+        case ES_EVENT_TYPE_AUTH_FILE_PROVIDER_MATERIALIZE:
+            out << msg->event.file_provider_materialize;
+            break;
+        case ES_EVENT_TYPE_AUTH_FILE_PROVIDER_UPDATE:
+            out << msg->event.file_provider_update;
+            break;
+        case ES_EVENT_TYPE_NOTIFY_EXCHANGEDATA:
+            out << msg->event.exchangedata;
+            break;
+        case ES_EVENT_TYPE_AUTH_LINK:
+            out << msg->event.link;
+            break;
         case ES_EVENT_TYPE_AUTH_MOUNT:
             out << msg->event.mount;
             break;
+        case ES_EVENT_TYPE_AUTH_OPEN:
+            out << msg->event.open;
+            break;
+        case ES_EVENT_TYPE_AUTH_READDIR:
+            out << msg->event.readdir;
+            break;
+        case ES_EVENT_TYPE_AUTH_READLINK:
+            out << msg->event.readlink;
+            break;
+        case ES_EVENT_TYPE_AUTH_RENAME:
+            out << msg->event.rename;
+            break;
+        case ES_EVENT_TYPE_AUTH_TRUNCATE:
+            out << msg->event.truncate;
+            break;
+        case ES_EVENT_TYPE_AUTH_UNLINK:
+            out << msg->event.unlink;
+            break;
         case ES_EVENT_TYPE_NOTIFY_UNMOUNT:
             out << msg->event.unmount;
+            break;
+        case ES_EVENT_TYPE_NOTIFY_WRITE:
+            out << msg->event.write;
+            break;
+        // System
+        case ES_EVENT_TYPE_NOTIFY_IOKIT_OPEN:
+            out << msg->event.iokit_open;
             break;
         case ES_EVENT_TYPE_NOTIFY_KEXTLOAD:
             out << msg->event.kextload;
@@ -339,7 +372,7 @@ std::ostream & operator << (std::ostream &out, const es_message_t *msg)
             break;
         case ES_EVENT_TYPE_LAST:
         default:
-            out << std::endl << "Printing not implemented yet: " << g_eventTypeToStrMap.at(msg->event_type);
+            out << "Printing not implemented yet: " << g_eventTypeToStrMap.at(msg->event_type);
             break;
     }
     return out;
@@ -396,7 +429,7 @@ std::ostream & operator << (std::ostream &out, const es_process_t * const proc)
         [hash appendFormat:@"%x", proc->cdhash[i]];
     }
     out << "  proc.cdhash: " << hash << std::endl;
-    out << "  proc.executable.path: " << proc->executable;
+    out << "  proc.executable.path:\n" << proc->executable;
 
     return out;
 }
