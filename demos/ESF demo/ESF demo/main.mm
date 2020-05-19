@@ -8,29 +8,26 @@
 // Source: https://gist.github.com/Omar-Ikram/8e6721d8e83a3da69b31d4c2612a68ba/
 
 
+#include <algorithm>
+#include <bsm/libbsm.h>
+#include <EndpointSecurity/EndpointSecurity.h>
 #include <iostream>
 #include <map>
-#include <vector>
-#include <algorithm>
-#include <EndpointSecurity/EndpointSecurity.h>
-#include <bsm/libbsm.h>
 #include <signal.h>
 #include <sys/fcntl.h> // FREAD, FWRITE, FFLAGS
-
+#include <vector>
 #import <Foundation/Foundation.h>
 
-#import "../../Common/Tools/Tools.hpp"
-#import "../../Common/Tools/Tools-ES.hpp"
+#include "../../../Common/Tools/Tools.hpp"
+#include "../../../Common/Tools/Tools-ES.hpp"
 
 // From <Kernel/sys/fcntl.h>
 /* convert from open() flags to/from fflags; convert O_RD/WR to FREAD/FWRITE */
 #define FFLAGS(oflags)  ((oflags) + 1)
 #define OFLAGS(fflags)  ((fflags) - 1)
 
-
 es_client_t *g_client = nullptr;
 std::vector<const std::string> g_blockedPaths; // thread safe for reading
-
 
 const inline static es_event_type_t g_eventsOfInterest[] = {
     // Process
@@ -61,6 +58,11 @@ const inline static es_event_type_t g_eventsOfInterest[] = {
     ES_EVENT_TYPE_NOTIFY_KEXTUNLOAD,
 };
 
+std::vector<const std::string> paths_from_event(const es_message_t *msg);
+void notify_event_handler(const es_message_t *msg);
+uint32_t flags_event_handler(const es_message_t *msg);
+es_auth_result_t auth_event_handler(const es_message_t *msg);
+
 void signalHandler(int signum)
 {
     if(g_client) {
@@ -74,7 +76,83 @@ void signalHandler(int signum)
 }
 
 
-std::vector<const std::string> pathsFromEvent(const es_message_t *msg)
+int main() {
+    // No runloop, no problem
+    signal(SIGINT, signalHandler);
+    signal(SIGTERM, signalHandler);
+    signal(SIGABRT, signalHandler);
+
+    const char* demoName = "ESF";
+    const std::string demoPath = "/tmp/" + std::string(demoName) + "-demo";
+    
+    std::cout << "(" << demoName << ") Hello, World!\n";
+    std::cout << "Point of interest: " << demoPath << std::endl << std::endl;
+    
+    
+    @autoreleasepool {
+        g_blockedPaths.push_back(demoPath);
+        
+        // Handler blocking file operations working with demoPath and monitoring mount operations
+        es_handler_block_t handler = ^(es_client_t *clt, const es_message_t *msg) {
+            //std::cout << msg << std::endl;
+
+            // Handle subscribed AUTH events:
+            if (msg->action_type == ES_ACTION_TYPE_AUTH) {
+                es_respond_result_t res;
+
+                if (msg->event_type == ES_EVENT_TYPE_AUTH_OPEN) {
+                    res = es_respond_flags_result(clt, msg, flags_event_handler(msg), false);
+                } else {
+                    res = es_respond_auth_result(clt, msg, auth_event_handler(msg), false);
+                }
+
+                if (res != ES_RESPOND_RESULT_SUCCESS)
+                    std::cerr << "es_respond_auth_result: " << g_respondResultToStrMap.at(res) << std::endl;
+            } else {
+                notify_event_handler(msg);
+            }
+        };
+                        
+        es_new_client_result_t res = es_new_client(&g_client, handler);
+        
+        if (ES_NEW_CLIENT_RESULT_SUCCESS != res) {
+            if(ES_NEW_CLIENT_RESULT_ERR_NOT_ENTITLED == res)
+                std::cerr << "Application requires 'com.apple.developer.endpoint-security.client' entitlement\n";
+            else if(ES_NEW_CLIENT_RESULT_ERR_NOT_PERMITTED == res)
+                std::cerr << "Application needs to run as root (and SIP disabled).\n";
+            else
+                std::cerr << "es_new_client: " << res << std::endl;
+            
+            return EXIT_FAILURE;
+        }
+        
+        // Cache needs to be explicitly cleared between program invocations
+        es_clear_cache_result_t resCache = es_clear_cache(g_client);
+        if (ES_CLEAR_CACHE_RESULT_SUCCESS != resCache) {
+            std::cerr << "es_clear_cache: " << resCache << std::endl;
+            return EXIT_FAILURE;
+        }
+        
+        
+        // Subscribe to the events we're interested in
+        es_return_t subscribed = es_subscribe(g_client,
+                                       g_eventsOfInterest,
+                                       (sizeof(g_eventsOfInterest) / sizeof((g_eventsOfInterest)[0])) // Event count
+                                       );
+        
+        if (subscribed == ES_RETURN_ERROR) {
+            std::cerr << "es_subscribe: ES_RETURN_ERROR\n";
+            return EXIT_FAILURE;
+        }
+        
+        dispatch_main();
+    }
+    
+    return EXIT_SUCCESS;
+}
+
+
+std::vector<const std::string> paths_from_event(const es_message_t *msg)
 {
     std::vector<const std::string> eventPaths;
 
@@ -165,7 +243,7 @@ std::vector<const std::string> pathsFromEvent(const es_message_t *msg)
     return eventPaths;
 }
 
-auto findOccurence = [](const std::string& str) {
+static const auto find_occurence = [](const std::string& str) {
     for (const auto &path : g_blockedPaths) {
         if (str.find(path) != std::string::npos) {
             std::cout << "*** Occurence found: " << str << std::endl;
@@ -197,10 +275,10 @@ void notify_event_handler(const es_message_t *msg)
         case ES_EVENT_TYPE_NOTIFY_EXCHANGEDATA:
         case ES_EVENT_TYPE_NOTIFY_WRITE:
         {
-            const std::vector<const std::string> eventPaths = pathsFromEvent(msg);
+            const std::vector<const std::string> eventPaths = paths_from_event(msg);
 
             // Block if path is in our blocked paths list
-            if (std::any_of(eventPaths.cbegin(), eventPaths.cend(), findOccurence)) {
+            if (std::any_of(eventPaths.cbegin(), eventPaths.cend(), find_occurence)) {
                 std::cout << "    " << (msg->action_type == ES_ACTION_TYPE_AUTH ? "BLOCKING: " : "NOTIFY: ")
                           << g_eventTypeToStrMap.at(msg->event_type) << " at "
                           << (long long) msg->mach_time << " of mach time." << std::endl;
@@ -221,10 +299,10 @@ uint32_t flags_event_handler(const es_message_t *msg)
     switch(msg->event_type) {
         case ES_EVENT_TYPE_AUTH_OPEN:
         {
-            const std::vector<const std::string> eventPaths = pathsFromEvent(msg);
+            const std::vector<const std::string> eventPaths = paths_from_event(msg);
 
             // Block if path is in our blocked paths list
-            if (std::any_of(eventPaths.cbegin(), eventPaths.cend(), findOccurence)) {
+            if (std::any_of(eventPaths.cbegin(), eventPaths.cend(), find_occurence)) {
                 std::cout << "    " << (msg->action_type == ES_ACTION_TYPE_AUTH ? "BLOCKING: " : "NOTIFY: ")
                           << g_eventTypeToStrMap.at(msg->event_type) << " at "
                           << (long long) msg->mach_time << " of mach time." << std::endl;
@@ -267,10 +345,10 @@ es_auth_result_t auth_event_handler(const es_message_t *msg)
         case ES_EVENT_TYPE_AUTH_TRUNCATE:
         case ES_EVENT_TYPE_AUTH_UNLINK:
         {
-            const std::vector<const std::string> eventPaths = pathsFromEvent(msg);
+            const std::vector<const std::string> eventPaths = paths_from_event(msg);
 
             // Block if path is in our blocked paths list
-            if (std::any_of(eventPaths.cbegin(), eventPaths.cend(), findOccurence)) {
+            if (std::any_of(eventPaths.cbegin(), eventPaths.cend(), find_occurence)) {
                 std::cout << "    " << (msg->action_type == ES_ACTION_TYPE_AUTH ? "BLOCKING: " : "NOTIFY: ")
                           << g_eventTypeToStrMap.at(msg->event_type) << " at "
                           << (long long) msg->mach_time << " of mach time." << std::endl;
@@ -286,86 +364,4 @@ es_auth_result_t auth_event_handler(const es_message_t *msg)
     }
 
     return ES_AUTH_RESULT_ALLOW;
-}
-
-// MARK: Main
-int main() {
-    // No runloop, no problem
-    signal(SIGINT, signalHandler);
-    signal(SIGTERM, signalHandler);
-    signal(SIGABRT, signalHandler);
-    signal(SIGPIPE, SIG_IGN);
-    //signal(SIGSEGV, signalHandler); // thread specific, see
-    // https://stackoverflow.com/questions/16204271/about-catching-the-sigsegv-in-multithreaded-environment
-    // https://stackoverflow.com/questions/6533373/is-sigsegv-delivered-to-each-thread/6533431#6533431
-    // https://stackoverflow.com/questions/20304720/catching-signals-such-as-sigsegv-and-sigfpe-in-multithreaded-program
-    
-    
-    const char* demoName = "ESF";
-    const std::string demoPath = "/tmp/" + std::string(demoName) + "-demo";
-    
-    std::cout << "(" << demoName << ") Hello, World!\n";
-    std::cout << "Point of interest: " << demoPath << std::endl << std::endl;
-    
-    
-    @autoreleasepool {
-        g_blockedPaths.push_back(demoPath);
-        
-        // Handler blocking file operations working with demoPath and monitoring mount operations
-        es_handler_block_t handler = ^(es_client_t *clt, const es_message_t *msg) {
-            //std::cout << msg << std::endl;
-
-            // Handle subscribed AUTH events:
-            if (msg->action_type == ES_ACTION_TYPE_AUTH) {
-                es_respond_result_t res;
-
-                if (msg->event_type == ES_EVENT_TYPE_AUTH_OPEN) {
-                    res = es_respond_flags_result(clt, msg, flags_event_handler(msg), false);
-                } else {
-                    res = es_respond_auth_result(clt, msg, auth_event_handler(msg), false);
-                }
-
-                if (res != ES_RESPOND_RESULT_SUCCESS)
-                    std::cerr << "es_respond_auth_result: " << g_respondResultToStrMap.at(res) << std::endl;
-            } else {
-                notify_event_handler(msg);
-            }
-        };
-                        
-        es_new_client_result_t res = es_new_client(&g_client, handler);
-        
-        if (ES_NEW_CLIENT_RESULT_SUCCESS != res) {
-            if(ES_NEW_CLIENT_RESULT_ERR_NOT_ENTITLED == res)
-                std::cerr << "Application requires 'com.apple.developer.endpoint-security.client' entitlement\n";
-            else if(ES_NEW_CLIENT_RESULT_ERR_NOT_PERMITTED == res)
-                std::cerr << "Application needs to run as root (and SIP disabled).\n";
-            else
-                std::cerr << "es_new_client: " << res << std::endl;
-            
-            return EXIT_FAILURE;
-        }
-        
-        // Cache needs to be explicitly cleared between program invocations
-        es_clear_cache_result_t resCache = es_clear_cache(g_client);
-        if (ES_CLEAR_CACHE_RESULT_SUCCESS != resCache) {
-            std::cerr << "es_clear_cache: " << resCache << std::endl;
-            return EXIT_FAILURE;
-        }
-        
-        
-        // Subscribe to the events we're interested in
-        es_return_t subscribed = es_subscribe(g_client,
-                                       g_eventsOfInterest,
-                                       (sizeof(g_eventsOfInterest) / sizeof((g_eventsOfInterest)[0])) // Event count
-                                       );
-        
-        if (subscribed == ES_RETURN_ERROR) {
-            std::cerr << "es_subscribe: ES_RETURN_ERROR\n";
-            return EXIT_FAILURE;
-        }
-        
-        dispatch_main();
-    }
-    
-    return EXIT_SUCCESS;
 }

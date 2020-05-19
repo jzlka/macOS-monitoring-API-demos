@@ -7,15 +7,17 @@
 //
 // Source: https://github.com/meliot/filewatcher
 
-#include <iostream>
 #include <atomic>
-#include <unistd.h> // geteuid
 #include <bsm/libbsm.h>
-#include <sys/ioctl.h>
+#include <iostream>
 #include <security/audit/audit_ioctl.h>
-
+#include <sys/ioctl.h>
+#include <unistd.h> // geteuid
 
 std::atomic<bool> g_shouldStop {false};
+
+FILE *initPipe();
+void readPrintToken(FILE* auditFile);
 
 void signalHandler(int signum)
 {
@@ -24,12 +26,34 @@ void signalHandler(int signum)
     g_shouldStop = true;
 }
 
+int main()
+{
+    // No runloop, no problem
+    signal(SIGINT, signalHandler);
+    signal(SIGTERM, signalHandler);
+    signal(SIGABRT, signalHandler);
+
+    const char* demoName = "OpenBSM";
+    const std::string demoPath = "/tmp/" + std::string(demoName) + "-demo";
+    
+    std::cout << "(" << demoName << ") Hello, World!\n";
+    std::cout << "Point of interest: " << "All the events!" << std::endl << std::endl;
+    
+    FILE *auditFile = initPipe();
+    
+    while(!g_shouldStop)
+        readPrintToken(auditFile);
+        
+    fclose(auditFile);
+    return EXIT_SUCCESS;
+}
+
 
 FILE *initPipe()
 {
     // Open the device
     FILE* auditFile = fopen("/dev/auditpipe", "r");
-    
+
     if (geteuid())
         std::cerr << "Opening /dev/auditpipe requires root permissions\n";
 
@@ -38,9 +62,9 @@ FILE *initPipe()
         exit(1);
     }
     int auditFileDescriptor = fileno(auditFile);
-    
-    
-    
+
+
+
     // Configure the audit pipe
     int mode = AUDITPIPE_PRESELECT_MODE_LOCAL;
     int ioctlReturn = ioctl(auditFileDescriptor,
@@ -111,7 +135,7 @@ FILE *initPipe()
         perror("Error ");
         return nullptr;
     }
-    
+
     return auditFile;
 }
 
@@ -133,7 +157,7 @@ void readPrintToken(FILE* auditFile)
             std::cerr << "Error fetching token.\n";
             break;
         }
-        
+
         char* dlmtr = "\n";
         au_print_flags_tok(stdout, &token, dlmtr, AU_OFLAG_XML);
         std::cout << std::endl;
@@ -143,33 +167,4 @@ void readPrintToken(FILE* auditFile)
     std::cout << std::endl;
     std::cout << std::endl;
     free(buffer);
-}
-
-
-
-int main()
-{
-    // No runloop, no problem
-    signal(SIGINT, signalHandler);
-    signal(SIGTERM, signalHandler);
-    signal(SIGABRT, signalHandler);
-    signal(SIGPIPE, SIG_IGN);
-    //signal(SIGSEGV, signalHandler); // thread specific, see
-    // https://stackoverflow.com/questions/16204271/about-catching-the-sigsegv-in-multithreaded-environment
-    // https://stackoverflow.com/questions/6533373/is-sigsegv-delivered-to-each-thread/6533431#6533431
-    // https://stackoverflow.com/questions/20304720/catching-signals-such-as-sigsegv-and-sigfpe-in-multithreaded-program
-    
-    const char* demoName = "OpenBSM";
-    const std::string demoPath = "/tmp/" + std::string(demoName) + "-demo";
-    
-    std::cout << "(" << demoName << ") Hello, World!\n";
-    std::cout << "Point of interest: " << "All the events!" << std::endl << std::endl;
-    
-    FILE *auditFile = initPipe();
-    
-    while(!g_shouldStop)
-        readPrintToken(auditFile);
-        
-    fclose(auditFile);
-    return EXIT_SUCCESS;
 }

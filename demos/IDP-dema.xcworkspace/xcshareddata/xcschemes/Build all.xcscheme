@@ -31,7 +31,7 @@
                BlueprintIdentifier = "09F7F8C6246AFC8A00BB0662"
                BuildableName = "DiskArbitration demo"
                BlueprintName = "DiskArbitration demo"
-               ReferencedContainer = "container:../DiskArbitration demo/DiskArbitration demo.xcodeproj">
+               ReferencedContainer = "container:DiskArbitration demo/DiskArbitration demo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -45,7 +45,7 @@
                BlueprintIdentifier = "09F0FB24246943F000E09485"
                BuildableName = "FSEvents-API demo"
                BlueprintName = "FSEvents-API demo"
-               ReferencedContainer = "container:../FSEvents demo/FSEvents demo.xcodeproj">
+               ReferencedContainer = "container:FSEvents demo/FSEvents demo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -59,7 +59,7 @@
                BlueprintIdentifier = "096009AD2469C8750003C8FF"
                BuildableName = "FSEvents-dev demo"
                BlueprintName = "FSEvents-dev demo"
-               ReferencedContainer = "container:../FSEvents demo/FSEvents demo.xcodeproj">
+               ReferencedContainer = "container:FSEvents demo/FSEvents demo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -73,7 +73,7 @@
                BlueprintIdentifier = "09F7F8E7246B063000BB0662"
                BuildableName = "IOKit demo"
                BlueprintName = "IOKit demo"
-               ReferencedContainer = "container:../IOKit demo/IOKit demo.xcodeproj">
+               ReferencedContainer = "container:IOKit demo/IOKit demo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -87,7 +87,7 @@
                BlueprintIdentifier = "09F7F903246C0E3100BB0662"
                BuildableName = "OpenBSM demo"
                BlueprintName = "OpenBSM demo"
-               ReferencedContainer = "container:../OpenBSM demo/OpenBSM demo.xcodeproj">
+               ReferencedContainer = "container:OpenBSM demo/OpenBSM demo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

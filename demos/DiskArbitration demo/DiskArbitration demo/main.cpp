@@ -5,56 +5,21 @@
 //  Created by Jozef on 12/05/2020.
 //  Copyright © 2020 Jozef Zuzelka. All rights reserved.
 //
-// Source: https://developer.apple.com/library/archive/documentation/DriversKernelHardware/Conceptual/DiskArbitrationProgGuide/ArbitrationBasics/ArbitrationBasics.html
+// Sources:
+// - https://developer.apple.com/library/archive/documentation/DriversKernelHardware/Conceptual/DiskArbitrationProgGuide/ArbitrationBasics/ArbitrationBasics.html
 
 #include <iostream>
-#include <sys/param.h>      // MAXPATHLEN
 #include <DiskArbitration/DiskArbitration.h>
 #include <DiskArbitration/DADisk.h>
 #include <IOKit/storage/IOStorageProtocolCharacteristics.h>
+#include <sys/param.h>      // MAXPATHLEN
 
-#include "../../Common/SignalHandler.hpp"
+#include "../../../Common/SignalHandler.hpp"
 
-void got_disk(DADiskRef disk, void *context)
-{
-    std::cout << "New disk appeared >" << (DADiskGetBSDName(disk) ? DADiskGetBSDName(disk) : "") << "<." << std::endl;
-}
-
-void got_disk_removal(DADiskRef disk, void *context)
-{
-    std::cout << "Disk removed: >" << (DADiskGetBSDName(disk) ? DADiskGetBSDName(disk) : "") << "<." << std::endl;
-}
-
-void got_rename(DADiskRef disk, CFArrayRef keys, void *context)
-{
-    CFDictionaryRef dict = DADiskCopyDescription(disk);
-    CFURLRef fspath = (CFURLRef)CFDictionaryGetValue(dict, kDADiskDescriptionVolumePathKey);
- 
-    char buf[MAXPATHLEN];
-    if (CFURLGetFileSystemRepresentation(fspath, false, (UInt8 *)buf, sizeof(buf))) {
-        std::cout << "Disk " << DADiskGetBSDName(disk) << " is now at " << buf << "\nChanged keys:" << std::endl;
-        CFShow(keys);
-    } else {
-        /* Something is *really* wrong. */
-    }
-}
-
-DADissenterRef allow_mount(DADiskRef disk, void *context)
-{
-        int allow = 0;
-        if (allow) {
-                /* Return NULL to allow */
-                std::cerr << "allow_mount: allowing mount >" << (DADiskGetBSDName(disk) ? DADiskGetBSDName(disk) : "") << "<." << std::endl;
-                return NULL;
-        } else {
-                /* Return a dissenter to deny */
-                std::cerr << "allow_mount: refusing mount >" << (DADiskGetBSDName(disk) ? DADiskGetBSDName(disk) : "") << "<." << std::endl;
-                return DADissenterCreate(
-                        kCFAllocatorDefault,
-                        kDAReturnExclusiveAccess,
-                        CFSTR("USB Not Allowed To Mount!"));
-        }
-}
+void got_disk(DADiskRef disk, void *context);
+void got_disk_removal(DADiskRef disk, void *context);
+void got_rename(DADiskRef disk, CFArrayRef keys, void *context);
+DADissenterRef allow_mount(DADiskRef disk, void *context);
 
 
 int main()
@@ -132,4 +97,46 @@ int main()
     CFRelease(session);
 
     return EXIT_SUCCESS;
+}
+
+
+void got_disk(DADiskRef disk, void *context)
+{
+    std::cout << "New disk appeared >" << (DADiskGetBSDName(disk) ? DADiskGetBSDName(disk) : "") << "<." << std::endl;
+}
+
+void got_disk_removal(DADiskRef disk, void *context)
+{
+    std::cout << "Disk removed: >" << (DADiskGetBSDName(disk) ? DADiskGetBSDName(disk) : "") << "<." << std::endl;
+}
+
+void got_rename(DADiskRef disk, CFArrayRef keys, void *context)
+{
+    CFDictionaryRef dict = DADiskCopyDescription(disk);
+    CFURLRef fspath = (CFURLRef)CFDictionaryGetValue(dict, kDADiskDescriptionVolumePathKey);
+
+    char buf[MAXPATHLEN];
+    if (CFURLGetFileSystemRepresentation(fspath, false, (UInt8 *)buf, sizeof(buf))) {
+        std::cout << "Disk " << DADiskGetBSDName(disk) << " is now at " << buf << "\nChanged keys:" << std::endl;
+        CFShow(keys);
+    } else {
+        /* Something is *really* wrong. */
+    }
+}
+
+DADissenterRef allow_mount(DADiskRef disk, void *context)
+{
+        int allow = 0;
+        if (allow) {
+                /* Return NULL to allow */
+                std::cerr << "allow_mount: allowing mount >" << (DADiskGetBSDName(disk) ? DADiskGetBSDName(disk) : "") << "<." << std::endl;
+                return NULL;
+        } else {
+                /* Return a dissenter to deny */
+                std::cerr << "allow_mount: refusing mount >" << (DADiskGetBSDName(disk) ? DADiskGetBSDName(disk) : "") << "<." << std::endl;
+                return DADissenterCreate(
+                        kCFAllocatorDefault,
+                        kDAReturnExclusiveAccess,
+                        CFSTR("USB Not Allowed To Mount!"));
+        }
 }

@@ -6,32 +6,25 @@
 //  Copyright © 2020 Jozef Zuzelka. All rights reserved.
 //
 
-// Source: Jonathan Levin, TWTR: @Morpheus______ http://NewOSXBook.com/ & Amit Singh, Mac OS X Internals: A Systems Approach
-// For details, q.v. MOXiI 1st Ed, chapter 3 (pp 74-78), or MOXiI II, Volume I, Chapter 5
+// Sources:
+// - Jonathan Levin, TWTR: @Morpheus______ http://NewOSXBook.com/ For details, q.v. MOXiI 1st Ed, chapter 3 (pp 74-78), or MOXiI II, Volume I, Chapter 5
+// - Amit Singh, Mac OS X Internals: A Systems Approach
 
 
+#include <atomic>
+#include <fcntl.h>        // O_RDONLY
+#include "fsevents.h"     // copied from xnu/bsd/sys/fsevents.h
+#include <grp.h>
 #include <iostream>
 #include <map>
-#include <atomic>
-
-#include <fcntl.h>        // O_RDONLY
-#include <unistd.h>       // geteuid, read, close
+#include <pwd.h>
 #include <sys/ioctl.h>    // for _IOW, a macro required by FSEVENTS_CLONE
 #include <sys/sysctl.h>   // for sysctl, KERN_PROC, etc.
-#include "fsevents.h"     // copied from xnu//bsd/sys/fsevents.h
-#include <pwd.h>
-#include <grp.h>
+#include <unistd.h>       // geteuid, read, close
 
 std::atomic<bool> g_shouldStop {false};
 
-void signalHandler(int signum)
-{
-    // Not safe, but whatever
-    std::cerr << "Interrupt signal (" << signum << ") received, exiting." << std::endl;
-    g_shouldStop = true;
-}
-
-#define BUFSIZE 1024 *1024
+#define BUFSIZE 1024*1024
 
 static inline const std::map<uint32_t, std::string> g_kfseNames = {
     {FSE_CREATE_FILE,         "FSE_CREATE_FILE"},
@@ -111,32 +104,13 @@ static const char *vtypeNames[] = {
 };
 #define VTYPE_MAX (sizeof(vtypeNames)/sizeof(char *))
 
-int lastPID = 0;
-static char *getProcName(long pid)
+static char *getProcName(long pid);
+
+void signalHandler(int signum)
 {
-    static char procName[4096];
-    size_t len = 1000;
-    int rc;
-    int mib[4];
-
-    // minor optimization
-    if (pid != lastPID) {
-        memset(procName, '\0', 4096);
-
-        mib[0] = CTL_KERN;
-        mib[1] = KERN_PROC;
-        mib[2] = KERN_PROC_PID;
-        mib[3] = pid;
-
-        if ((rc = sysctl(mib, 4, procName, &len, NULL,0)) < 0) {
-            perror("trace facility failure, KERN_PROC_PID\n");
-            exit(1);
-        }
-
-        //printf ("GOT PID: %d and rc: %d -  %s\n", mib[3], rc, ((struct kinfo_proc *)procName)->kp_proc.p_comm);
-        lastPID = pid;
-    }
-    return (((struct kinfo_proc *)procName)->kp_proc.p_comm);
+    // Not safe, but whatever
+    std::cerr << "Interrupt signal (" << signum << ") received, exiting." << std::endl;
+    g_shouldStop = true;
 }
 
 
@@ -146,12 +120,7 @@ int main()
     signal(SIGINT, signalHandler);
     signal(SIGTERM, signalHandler);
     signal(SIGABRT, signalHandler);
-    signal(SIGPIPE, SIG_IGN);
-    //signal(SIGSEGV, signalHandler); // thread specific, see
-    // https://stackoverflow.com/questions/16204271/about-catching-the-sigsegv-in-multithreaded-environment
-    // https://stackoverflow.com/questions/6533373/is-sigsegv-delivered-to-each-thread/6533431#6533431
-    // https://stackoverflow.com/questions/20304720/catching-signals-such-as-sigsegv-and-sigfpe-in-multithreaded-program
-    
+
     const char* demoName = "FSEvents-dev";
     const std::string demoPath = "/tmp/" + std::string(demoName) + "-demo";
     
@@ -167,7 +136,7 @@ int main()
 
     if (fsed < 0) {
         std::cerr << "Could not open the device\n";
-        exit(1);
+        return EXIT_FAILURE;
     }
 
     // Prepare event mask list. In our simple example, we want everything
@@ -193,14 +162,13 @@ int main()
     
     // Do it.
     int rc = ioctl (fsed, FSEVENTS_CLONE, &clone_args);
-    if (rc < 0) {
-        std::cerr << "ioctl error.\n";
-        close(fsed);
-        exit(2);
-    }
-    
     // We no longer need original..
     close(fsed);
+
+    if (rc < 0) {
+        std::cerr << "ioctl error.\n";
+        return EXIT_FAILURE;
+    }
     
     u_int32_t is_fse_arg_vnode = 0;
     char buf[BUFSIZE];
@@ -300,5 +268,34 @@ int main()
     } // forever
     
     close(cloned_fsed);
-    exit(0);
+    return EXIT_SUCCESS;
+}
+
+
+static char *getProcName(long pid)
+{
+    static long lastPID = 0;
+    static char procName[4096];
+    size_t len = 1000;
+    int rc;
+    int mib[4];
+
+    // minor optimization
+    if (pid != lastPID) {
+        memset(procName, '\0', 4096);
+
+        mib[0] = CTL_KERN;
+        mib[1] = KERN_PROC;
+        mib[2] = KERN_PROC_PID;
+        mib[3] = pid;
+
+        if ((rc = sysctl(mib, 4, procName, &len, NULL,0)) < 0) {
+            perror("trace facility failure, KERN_PROC_PID\n");
+            exit(2);
+        }
+
+        //printf ("GOT PID: %d and rc: %d -  %s\n", mib[3], rc, ((struct kinfo_proc *)procName)->kp_proc.p_comm);
+        lastPID = pid;
+    }
+    return (((struct kinfo_proc *)procName)->kp_proc.p_comm);
 }

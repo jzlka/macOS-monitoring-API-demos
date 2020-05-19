@@ -6,35 +6,30 @@
 //  Copyright © 2020 Jozef Zuzelka. All rights reserved.
 //
 
-// Source: https://developer.apple.com/library/archive/documentation/Darwin/Conceptual/FSEvents_ProgGuide/KernelQueues/KernelQueues.html
-// https://developer.apple.com/library/archive/samplecode/FileNotification/Introduction/Intro.html
+// Sources:
+// - https://developer.apple.com/library/archive/documentation/Darwin/Conceptual/FSEvents_ProgGuide/KernelQueues/KernelQueues.html
+// - https://developer.apple.com/library/archive/samplecode/FileNotification/Introduction/Intro.html
 
-#include <iostream>
-#include <atomic>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/event.h>
-#include <sys/time.h>
-#include <errno.h>
-#include <string.h>
-#include <inttypes.h>
- 
+#include <atomic>           // std::atomic,
+#include <cerrno>           // errno
+#include <fcntl.h>          // O_EVTONLY
+#include <iostream>         // std::cout, std::cerr,...
+#include <sys/event.h>      // kqueue, kevent,...
+#include <unistd.h>         // close
+
 #define NUM_EVENT_SLOTS 1
 #define NUM_EVENT_FDS 1
  
-char *flagstring(int flags);
- 
 std::atomic<bool> g_shouldStop {false};
+char *flagstring(int flags);
 
 void signalHandler(int signum)
 {
- // Not safe, but whatever
- std::cerr << "Interrupt signal (" << signum << ") received, exiting." << std::endl;
- g_shouldStop = true;
+    // Not safe, but whatever
+    std::cerr << "Interrupt signal (" << signum << ") received, exiting." << std::endl;
+    g_shouldStop = true;
 }
+
 
 int main()
 {
@@ -42,16 +37,10 @@ int main()
     signal(SIGINT, signalHandler);
     signal(SIGTERM, signalHandler);
     signal(SIGABRT, signalHandler);
-    signal(SIGPIPE, SIG_IGN);
-    //signal(SIGSEGV, signalHandler); // thread specific, see
-    // https://stackoverflow.com/questions/16204271/about-catching-the-sigsegv-in-multithreaded-environment
-    // https://stackoverflow.com/questions/6533373/is-sigsegv-delivered-to-each-thread/6533431#6533431
-    // https://stackoverflow.com/questions/20304720/catching-signals-such-as-sigsegv-and-sigfpe-in-multithreaded-program
-    
-    
+
     const char* demoName = "kevent";
     const std::string demoPath = "/tmp/" + std::string(demoName) + "-demo";
-    
+
     std::cout << "(" << demoName << ") Hello, World!\n";
     std::cout << "Point of interest: " << demoPath << std::endl << std::endl;
     
@@ -68,7 +57,8 @@ int main()
      */
     int event_fd = open(demoPath.c_str(), O_EVTONLY);
     if (event_fd <=0) {
-        std::cerr << "The file " << demoPath << " could not be opened for monitoring.  Error was " << strerror(errno) << ".\n";
+        std::cerr << "The file " << demoPath << " could not be opened for monitoring.  Error was "
+                  << strerror(errno) << ".\n";
         return EXIT_FAILURE;
     }
  
@@ -82,14 +72,14 @@ int main()
  
     /* Set the timeout to wake us every 5 and half second. */
     struct timespec timeout {
-        .tv_sec = 5,             // 5 seconds
+        .tv_sec = 5,            // 5 seconds
         .tv_nsec = 500000000    // 500 milliseconds
     };
  
     /* Set up a list of events to monitor. */
     unsigned int vnode_events;
     struct kevent events_to_monitor[NUM_EVENT_FDS];
-    vnode_events = NOTE_DELETE |  NOTE_WRITE | NOTE_EXTEND | NOTE_ATTRIB | NOTE_LINK | NOTE_RENAME | NOTE_REVOKE;
+    vnode_events = (NOTE_DELETE | NOTE_WRITE | NOTE_EXTEND | NOTE_ATTRIB | NOTE_LINK | NOTE_RENAME | NOTE_REVOKE);
     EV_SET(&events_to_monitor[0], event_fd, EVFILT_VNODE, EV_ADD | EV_CLEAR, vnode_events, 0, user_data);
  
     /* Handle events. */
@@ -100,7 +90,8 @@ int main()
         int event_count = kevent(kq, events_to_monitor, NUM_EVENT_SLOTS, event_data, num_files, &timeout);
         if ((event_count < 0) || (event_data[0].flags == EV_ERROR)) {
             /* An error occurred. */
-            std::cerr << "An error occurred (event count " << event_count << ").  The error was " << strerror(errno) << ".\n";
+            std::cerr << "An error occurred (event count " << event_count << ").  The error was "
+                      << strerror(errno) << ".\n";
             break;
         }
         if (event_count) {
@@ -117,13 +108,14 @@ int main()
  
         /* Reset the timeout.  In case of a signal interrruption, the
            values may change. */
-        timeout.tv_sec = 5;        // 0 seconds
+        timeout.tv_sec = 5;             // 5 seconds
         timeout.tv_nsec = 500000000;    // 500 milliseconds
     }
     close(event_fd);
     return 0;
 }
- 
+
+
 /* A simple routine to return a string for a set of flags. */
 char *flagstring(int flags)
 {

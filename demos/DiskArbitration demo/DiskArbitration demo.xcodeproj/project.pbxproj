@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0990115A24742E9F00DDFE69 /* SignalHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0990115924742E9700DDFE69 /* SignalHandler.cpp */; };
 		09F7F8CB246AFC8A00BB0662 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09F7F8CA246AFC8A00BB0662 /* main.cpp */; };
 		09F7F8D3246B02EF00BB0662 /* DiskArbitration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09F7F8D2246B02EF00BB0662 /* DiskArbitration.framework */; };
 		09F7F8D5246B02F300BB0662 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09F7F8D4246B02F300BB0662 /* CoreFoundation.framework */; };
-		09F7F8DE246B035900BB0662 /* SignalHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09F7F8DC246B035300BB0662 /* SignalHandler.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,12 +26,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0990115324742E9700DDFE69 /* SignalHandler.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SignalHandler.hpp; sourceTree = "<group>"; };
+		0990115524742E9700DDFE69 /* Tools-ES.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "Tools-ES.mm"; sourceTree = "<group>"; };
+		0990115624742E9700DDFE69 /* Tools-ES.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "Tools-ES.hpp"; sourceTree = "<group>"; };
+		0990115724742E9700DDFE69 /* Tools.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Tools.mm; sourceTree = "<group>"; };
+		0990115824742E9700DDFE69 /* Tools.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Tools.hpp; sourceTree = "<group>"; };
+		0990115924742E9700DDFE69 /* SignalHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SignalHandler.cpp; sourceTree = "<group>"; };
 		09F7F8C7246AFC8A00BB0662 /* DiskArbitration demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "DiskArbitration demo"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09F7F8CA246AFC8A00BB0662 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		09F7F8D2246B02EF00BB0662 /* DiskArbitration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DiskArbitration.framework; path = System/Library/Frameworks/DiskArbitration.framework; sourceTree = SDKROOT; };
 		09F7F8D4246B02F300BB0662 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		09F7F8DC246B035300BB0662 /* SignalHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SignalHandler.cpp; sourceTree = "<group>"; };
-		09F7F8DD246B035300BB0662 /* SignalHandler.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SignalHandler.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,10 +51,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0990115224742E9700DDFE69 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				0990115424742E9700DDFE69 /* Tools */,
+				0990115924742E9700DDFE69 /* SignalHandler.cpp */,
+				0990115324742E9700DDFE69 /* SignalHandler.hpp */,
+			);
+			name = Common;
+			path = ../../Common;
+			sourceTree = "<group>";
+		};
+		0990115424742E9700DDFE69 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				0990115524742E9700DDFE69 /* Tools-ES.mm */,
+				0990115624742E9700DDFE69 /* Tools-ES.hpp */,
+				0990115724742E9700DDFE69 /* Tools.mm */,
+				0990115824742E9700DDFE69 /* Tools.hpp */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
 		09F7F8BE246AFC8A00BB0662 = {
 			isa = PBXGroup;
 			children = (
-				09F7F8DB246B035300BB0662 /* Common */,
+				0990115224742E9700DDFE69 /* Common */,
 				09F7F8C9246AFC8A00BB0662 /* DiskArbitration demo */,
 				09F7F8C8246AFC8A00BB0662 /* Products */,
 				09F7F8D1246B02EF00BB0662 /* Frameworks */,
@@ -80,16 +106,6 @@
 				09F7F8D2246B02EF00BB0662 /* DiskArbitration.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		09F7F8DB246B035300BB0662 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				09F7F8DC246B035300BB0662 /* SignalHandler.cpp */,
-				09F7F8DD246B035300BB0662 /* SignalHandler.hpp */,
-			);
-			name = Common;
-			path = ../Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,7 +165,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09F7F8DE246B035900BB0662 /* SignalHandler.cpp in Sources */,
+				0990115A24742E9F00DDFE69 /* SignalHandler.cpp in Sources */,
 				09F7F8CB246AFC8A00BB0662 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,6 +285,7 @@
 		09F7F8CF246AFC8A00BB0662 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VN555WY3S4;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -279,6 +296,7 @@
 		09F7F8D0246AFC8A00BB0662 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VN555WY3S4;
 				ENABLE_HARDENED_RUNTIME = YES;

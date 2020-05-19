@@ -29,6 +29,10 @@ void InstallHandleSignalFromRunLoop()
     // Ignore signals.  Even though we've ignored the signal, the kqueue will
     // still see it.
     const std::vector<int> signalsToWatch = {SIGINT, SIGABRT, SIGTERM};
+    // For SIGSEGV see
+    // https://stackoverflow.com/questions/16204271/about-catching-the-sigsegv-in-multithreaded-environment
+    // https://stackoverflow.com/questions/6533373/is-sigsegv-delivered-to-each-thread/6533431#6533431
+    // https://stackoverflow.com/questions/20304720/catching-signals-such-as-sigsegv-and-sigfpe-in-multithreaded-program
     sig_t sigErr;
     for (const auto &signum : signalsToWatch)
     {

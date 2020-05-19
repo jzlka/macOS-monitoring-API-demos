@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0990114424730C2000DDFE69 /* Tools-ES.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0990113F24730C1200DDFE69 /* Tools-ES.mm */; };
-		0990114524730C2000DDFE69 /* Tools.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0990114124730C1200DDFE69 /* Tools.mm */; };
+		0990116C247431D400DDFE69 /* Tools-ES.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09901167247431CF00DDFE69 /* Tools-ES.mm */; };
+		0990116D247431D400DDFE69 /* Tools.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09901169247431CF00DDFE69 /* Tools.mm */; };
 		09EBC7BF246EF58B00F6024B /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09EBC7BE246EF58B00F6024B /* main.mm */; };
 		09EBC7C7246EF79200F6024B /* libEndpointSecurity.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EBC7C6246EF78400F6024B /* libEndpointSecurity.tbd */; };
 		09EBC7C9246EF81E00F6024B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09EBC7C8246EF81E00F6024B /* Foundation.framework */; };
@@ -28,13 +28,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0990113D24730C1200DDFE69 /* SignalHandler.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SignalHandler.hpp; sourceTree = "<group>"; };
-		0990113F24730C1200DDFE69 /* Tools-ES.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "Tools-ES.mm"; sourceTree = "<group>"; };
-		0990114024730C1200DDFE69 /* Tools-ES.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "Tools-ES.hpp"; sourceTree = "<group>"; };
-		0990114124730C1200DDFE69 /* Tools.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Tools.mm; sourceTree = "<group>"; };
-		0990114224730C1200DDFE69 /* Tools.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Tools.hpp; sourceTree = "<group>"; };
-		0990114324730C1200DDFE69 /* SignalHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SignalHandler.cpp; sourceTree = "<group>"; };
 		099011462474230200DDFE69 /* Kernel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kernel.framework; path = System/Library/Frameworks/Kernel.framework; sourceTree = SDKROOT; };
+		09901165247431CF00DDFE69 /* SignalHandler.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SignalHandler.hpp; sourceTree = "<group>"; };
+		09901167247431CF00DDFE69 /* Tools-ES.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "Tools-ES.mm"; sourceTree = "<group>"; };
+		09901168247431CF00DDFE69 /* Tools-ES.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "Tools-ES.hpp"; sourceTree = "<group>"; };
+		09901169247431CF00DDFE69 /* Tools.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Tools.mm; sourceTree = "<group>"; };
+		0990116A247431CF00DDFE69 /* Tools.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Tools.hpp; sourceTree = "<group>"; };
+		0990116B247431CF00DDFE69 /* SignalHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SignalHandler.cpp; sourceTree = "<group>"; };
 		09EBC7BB246EF58A00F6024B /* ESF demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "ESF demo"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09EBC7BE246EF58B00F6024B /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		09EBC7C6246EF78400F6024B /* libEndpointSecurity.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libEndpointSecurity.tbd; path = usr/lib/libEndpointSecurity.tbd; sourceTree = SDKROOT; };
@@ -57,24 +57,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0990113C24730C1200DDFE69 /* Common */ = {
+		09901164247431CF00DDFE69 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				0990113E24730C1200DDFE69 /* Tools */,
-				0990113D24730C1200DDFE69 /* SignalHandler.hpp */,
-				0990114324730C1200DDFE69 /* SignalHandler.cpp */,
+				09901166247431CF00DDFE69 /* Tools */,
+				0990116B247431CF00DDFE69 /* SignalHandler.cpp */,
+				09901165247431CF00DDFE69 /* SignalHandler.hpp */,
 			);
 			name = Common;
-			path = ../Common;
+			path = ../../Common;
 			sourceTree = "<group>";
 		};
-		0990113E24730C1200DDFE69 /* Tools */ = {
+		09901166247431CF00DDFE69 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				0990113F24730C1200DDFE69 /* Tools-ES.mm */,
-				0990114024730C1200DDFE69 /* Tools-ES.hpp */,
-				0990114124730C1200DDFE69 /* Tools.mm */,
-				0990114224730C1200DDFE69 /* Tools.hpp */,
+				09901167247431CF00DDFE69 /* Tools-ES.mm */,
+				09901168247431CF00DDFE69 /* Tools-ES.hpp */,
+				09901169247431CF00DDFE69 /* Tools.mm */,
+				0990116A247431CF00DDFE69 /* Tools.hpp */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -82,8 +82,8 @@
 		09EBC7B2246EF58A00F6024B = {
 			isa = PBXGroup;
 			children = (
-				0990113C24730C1200DDFE69 /* Common */,
 				09EBC7CC246EFCF400F6024B /* ESF demo.entitlements */,
+				09901164247431CF00DDFE69 /* Common */,
 				09EBC7BD246EF58B00F6024B /* ESF demo */,
 				09EBC7BC246EF58B00F6024B /* Products */,
 				09EBC7C5246EF78300F6024B /* Frameworks */,
@@ -174,8 +174,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0990114424730C2000DDFE69 /* Tools-ES.mm in Sources */,
-				0990114524730C2000DDFE69 /* Tools.mm in Sources */,
+				0990116C247431D400DDFE69 /* Tools-ES.mm in Sources */,
+				0990116D247431D400DDFE69 /* Tools.mm in Sources */,
 				09EBC7BF246EF58B00F6024B /* main.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
