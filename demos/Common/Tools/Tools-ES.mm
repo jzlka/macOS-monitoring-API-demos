@@ -197,8 +197,12 @@ std::ostream & operator << (std::ostream &out, const es_event_mount_t &event)
 
 std::ostream & operator << (std::ostream &out, const es_event_open_t &event)
 {
-    out << "event.open.fflag: " << fflagstostr(event.fflag);
+    char *flags = fflagstostr(event.fflag);
+    out << "event.open.fflag: " << flags;
     out << std::endl << event.file;
+    
+    free(flags);
+    flags = nullptr;
     return out;
 }
 

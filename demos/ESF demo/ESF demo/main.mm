@@ -15,13 +15,18 @@
 #include <EndpointSecurity/EndpointSecurity.h>
 #include <bsm/libbsm.h>
 #include <signal.h>
-#include <sys/fcntl.h> // FREAD, FWRITE
-
+#include <sys/fcntl.h> // FREAD, FWRITE, FFLAGS
 
 #import <Foundation/Foundation.h>
 
 #import "../../Common/Tools/Tools.hpp"
 #import "../../Common/Tools/Tools-ES.hpp"
+
+// From <Kernel/sys/fcntl.h>
+/* convert from open() flags to/from fflags; convert O_RD/WR to FREAD/FWRITE */
+#define FFLAGS(oflags)  ((oflags) + 1)
+#define OFLAGS(fflags)  ((fflags) - 1)
+
 
 es_client_t *g_client = nullptr;
 std::vector<const std::string> g_blockedPaths; // thread safe for reading
@@ -211,7 +216,7 @@ void notify_event_handler(const es_message_t *msg)
 
 uint32_t flags_event_handler(const es_message_t *msg)
 {
-    uint32_t res = FREAD | FWRITE;
+    uint32_t res = msg->event.open.fflag;
 
     switch(msg->event_type) {
         case ES_EVENT_TYPE_AUTH_OPEN:
@@ -224,16 +229,8 @@ uint32_t flags_event_handler(const es_message_t *msg)
                           << g_eventTypeToStrMap.at(msg->event_type) << " at "
                           << (long long) msg->mach_time << " of mach time." << std::endl;
                 std::cout << msg << std::endl;
-                res = 0;
+                res = FFLAGS(O_RDONLY);
             }
-//            else {
-//                std::cout << "*** Occurence NOT found (" << eventPaths[0] << ")." << std::endl;
-//                std::cout << "    Ignoring: "
-//                          << g_eventTypeToStrMap.at(msg->event_type) << " at "
-//                          << (long long) msg->mach_time << " of mach time." << std::endl;
-//                //std::cout << msg << std::endl;
-
-//            }
             break;
         }
         default:
@@ -281,13 +278,6 @@ es_auth_result_t auth_event_handler(const es_message_t *msg)
 
                 return ES_AUTH_RESULT_DENY;
             }
-//            else {
-//                std::cout << "*** Occurence NOT found (" << eventPaths[0] << ")." << std::endl;
-//                std::cout << "    Ignoring: "
-//                          << g_eventTypeToStrMap.at(msg->event_type) << " at "
-//                          << (long long) msg->mach_time << " of mach time." << std::endl;
-//                //std::cout << msg << std::endl;
-//            }
             break;
         }
         default:
