@@ -15,6 +15,7 @@
 #include <EndpointSecurity/EndpointSecurity.h>
 #include <bsm/libbsm.h>
 #include <signal.h>
+#include <sys/fcntl.h> // FREAD, FWRITE
 
 
 #import <Foundation/Foundation.h>
@@ -27,6 +28,7 @@ std::vector<const std::string> g_blockedPaths; // thread safe for reading
 
 
 const inline static es_event_type_t g_eventsOfInterest[] = {
+    // Process
     ES_EVENT_TYPE_AUTH_EXEC,
     ES_EVENT_TYPE_NOTIFY_EXIT,
     ES_EVENT_TYPE_NOTIFY_FORK,
@@ -158,6 +160,15 @@ std::vector<const std::string> pathsFromEvent(const es_message_t *msg)
     return eventPaths;
 }
 
+auto findOccurence = [](const std::string& str) {
+    for (const auto &path : g_blockedPaths) {
+        if (str.find(path) != std::string::npos) {
+            std::cout << "*** Occurence found: " << str << std::endl;
+            return true;
+        }
+    }
+    return false;
+};
 
 void notify_event_handler(const es_message_t *msg)
 {
@@ -167,6 +178,7 @@ void notify_event_handler(const es_message_t *msg)
         case ES_EVENT_TYPE_NOTIFY_FORK:
         // System
         case ES_EVENT_TYPE_NOTIFY_IOKIT_OPEN:
+            break;
         case ES_EVENT_TYPE_NOTIFY_KEXTLOAD:
         case ES_EVENT_TYPE_NOTIFY_KEXTUNLOAD:
         // File System
@@ -182,18 +194,11 @@ void notify_event_handler(const es_message_t *msg)
         {
             const std::vector<const std::string> eventPaths = pathsFromEvent(msg);
 
-            auto findOccurence = [](const std::string& str) {
-                for (const auto &path : g_blockedPaths) {
-                    if (path.find(str) != std::string::npos)
-                        return true;
-                }
-                return false;
-            };
-
             // Block if path is in our blocked paths list
             if (std::any_of(eventPaths.cbegin(), eventPaths.cend(), findOccurence)) {
-                std::cout << (msg->action_type == ES_ACTION_TYPE_AUTH ? "BLOCKING: " : "NOTIFY: ")
-                << g_eventTypeToStrMap.at(msg->event_type) << " at " << (long long) msg->mach_time << " of mach time." << std::endl;
+                std::cout << "    " << (msg->action_type == ES_ACTION_TYPE_AUTH ? "BLOCKING: " : "NOTIFY: ")
+                          << g_eventTypeToStrMap.at(msg->event_type) << " at "
+                          << (long long) msg->mach_time << " of mach time." << std::endl;
                 std::cout << msg << std::endl;
             }
             break;
@@ -204,6 +209,41 @@ void notify_event_handler(const es_message_t *msg)
     }
 }
 
+uint32_t flags_event_handler(const es_message_t *msg)
+{
+    uint32_t res = FREAD | FWRITE;
+
+    switch(msg->event_type) {
+        case ES_EVENT_TYPE_AUTH_OPEN:
+        {
+            const std::vector<const std::string> eventPaths = pathsFromEvent(msg);
+
+            // Block if path is in our blocked paths list
+            if (std::any_of(eventPaths.cbegin(), eventPaths.cend(), findOccurence)) {
+                std::cout << "    " << (msg->action_type == ES_ACTION_TYPE_AUTH ? "BLOCKING: " : "NOTIFY: ")
+                          << g_eventTypeToStrMap.at(msg->event_type) << " at "
+                          << (long long) msg->mach_time << " of mach time." << std::endl;
+                std::cout << msg << std::endl;
+                res = 0;
+            }
+//            else {
+//                std::cout << "*** Occurence NOT found (" << eventPaths[0] << ")." << std::endl;
+//                std::cout << "    Ignoring: "
+//                          << g_eventTypeToStrMap.at(msg->event_type) << " at "
+//                          << (long long) msg->mach_time << " of mach time." << std::endl;
+//                //std::cout << msg << std::endl;
+
+//            }
+            break;
+        }
+        default:
+            std::cout << "DEFAULT: " << g_eventTypeToStrMap.at(msg->event_type) << std::endl;
+            break;
+    }
+
+    return res;
+}
+
 // Simple handler to make AUTH (allow or block) decisions.
 // Returns either an ES_AUTH_RESULT_ALLOW or ES_AUTH_RESULT_DENY.
 es_auth_result_t auth_event_handler(const es_message_t *msg)
@@ -211,6 +251,7 @@ es_auth_result_t auth_event_handler(const es_message_t *msg)
     switch(msg->event_type) {
         // Process
         case ES_EVENT_TYPE_AUTH_EXEC:
+            break;
         // System
         // File System
         case ES_EVENT_TYPE_AUTH_MOUNT:
@@ -223,7 +264,6 @@ es_auth_result_t auth_event_handler(const es_message_t *msg)
         case ES_EVENT_TYPE_AUTH_FILE_PROVIDER_MATERIALIZE:
         case ES_EVENT_TYPE_AUTH_FILE_PROVIDER_UPDATE:
         case ES_EVENT_TYPE_AUTH_LINK:
-        case ES_EVENT_TYPE_AUTH_OPEN:
         case ES_EVENT_TYPE_AUTH_READDIR:
         case ES_EVENT_TYPE_AUTH_READLINK:
         case ES_EVENT_TYPE_AUTH_RENAME:
@@ -232,27 +272,22 @@ es_auth_result_t auth_event_handler(const es_message_t *msg)
         {
             const std::vector<const std::string> eventPaths = pathsFromEvent(msg);
 
-            auto findOccurence = [](const std::string& str) {
-                for (const auto &path : g_blockedPaths) {
-                    if (path.find(str) != std::string::npos)
-                        return true;
-                }
-                return false;
-            };
-
             // Block if path is in our blocked paths list
             if (std::any_of(eventPaths.cbegin(), eventPaths.cend(), findOccurence)) {
-                std::cout << (msg->action_type == ES_ACTION_TYPE_AUTH ? "BLOCKING: " : "NOTIFY: ")
-                << g_eventTypeToStrMap.at(msg->event_type) << " at " << (long long) msg->mach_time << " of mach time." << std::endl;
+                std::cout << "    " << (msg->action_type == ES_ACTION_TYPE_AUTH ? "BLOCKING: " : "NOTIFY: ")
+                          << g_eventTypeToStrMap.at(msg->event_type) << " at "
+                          << (long long) msg->mach_time << " of mach time." << std::endl;
                 std::cout << msg << std::endl;
 
                 return ES_AUTH_RESULT_DENY;
             }
-            else {
-                std::cout << (msg->action_type == ES_ACTION_TYPE_AUTH ? "BLOCKING: " : "NOTIFY: ")
-                << g_eventTypeToStrMap.at(msg->event_type) << " at " << (long long) msg->mach_time << " of mach time." << std::endl;
-                std::cout << msg << std::endl;
-            }
+//            else {
+//                std::cout << "*** Occurence NOT found (" << eventPaths[0] << ")." << std::endl;
+//                std::cout << "    Ignoring: "
+//                          << g_eventTypeToStrMap.at(msg->event_type) << " at "
+//                          << (long long) msg->mach_time << " of mach time." << std::endl;
+//                //std::cout << msg << std::endl;
+//            }
             break;
         }
         default:
@@ -289,11 +324,17 @@ int main() {
         // Handler blocking file operations working with demoPath and monitoring mount operations
         es_handler_block_t handler = ^(es_client_t *clt, const es_message_t *msg) {
             //std::cout << msg << std::endl;
-                
+
             // Handle subscribed AUTH events:
             if (msg->action_type == ES_ACTION_TYPE_AUTH) {
-                es_respond_result_t res = es_respond_auth_result(clt, msg, auth_event_handler(msg), false);
-                    
+                es_respond_result_t res;
+
+                if (msg->event_type == ES_EVENT_TYPE_AUTH_OPEN) {
+                    res = es_respond_flags_result(clt, msg, flags_event_handler(msg), false);
+                } else {
+                    res = es_respond_auth_result(clt, msg, auth_event_handler(msg), false);
+                }
+
                 if (res != ES_RESPOND_RESULT_SUCCESS)
                     std::cerr << "es_respond_auth_result: " << g_respondResultToStrMap.at(res) << std::endl;
             } else {
