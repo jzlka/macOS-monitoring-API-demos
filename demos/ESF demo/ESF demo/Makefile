@@ -3,7 +3,7 @@
 # @author     Jozef Zuzelka <jozef.zuzelka@gmail.com>
 # @date
 #  - Created: 18.05.2020 10:38
-#  - Edited:  18.05.2020 11:30
+#  - Edited:  19.05.2020 11:03
 # @version    1.0.0
 # @par        make: GNU Make 3.81
 # @bug
@@ -19,25 +19,25 @@ FRAMEWORKS=-framework Foundation -framework SystemConfiguration /usr/lib/libEndp
 
 ########################     Variables     ##########################
 SHELL:=/bin/bash
-SRCDIR=.
-SRCDIR2=../../Common
+SRCDIRS=. ../../Common
 OBJDIR=obj
-TESTSDIR=tests
 BINDIR=.
 
 BIN=ESF-demo
-SRC=$(wildcard $(SRCDIR)/*.mm)
-SRC+=$(wildcard $(SRCDIR2)/*.mm)
-OBJ=$(patsubst $(SRCDIR)/%.mm, $(OBJDIR)/%.o, $(SRC))
-OBJ+=$(patsubst $(SRCDIR2)/%.mm, $(OBJDIR)/%.o, $(SRC2))
+SRC=$(shell for dir in $(SRCDIRS); do find $$dir -type f \( -iname '*.mm' -o -iname '*.cpp' -o -iname '*.m' \); done)
+OBJ=$(patsubst %.m,%.o, $(patsubst %.mm,%.o, $(patsubst %.cpp,%.o, $(addprefix $(OBJDIR)/,$(notdir $(SRC))))))
 
 .PHONY: clean
 
+space :=
+space +=
+VPATH := $(subst $(space),:,$(shell find $(SRCDIRS) -type d))
+
 ######################    #######################
-$(OBJDIR)/%.o: $(SRCDIR)/%.mm
+$(OBJDIR)/%.o: %.mm
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(OBJDIR)/%.o: $(SRCDIR2)/%.mm
+$(OBJDIR)/%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 all: directories $(BIN)
