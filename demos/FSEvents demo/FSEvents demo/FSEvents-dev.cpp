@@ -13,7 +13,6 @@
 
 #include <atomic>
 #include <fcntl.h>        // O_RDONLY
-#include "fsevents.h"     // copied from xnu/bsd/sys/fsevents.h
 #include <grp.h>
 #include <iostream>
 #include <map>
@@ -21,6 +20,7 @@
 #include <sys/ioctl.h>    // for _IOW, a macro required by FSEVENTS_CLONE
 #include <sys/sysctl.h>   // for sysctl, KERN_PROC, etc.
 #include <unistd.h>       // geteuid, read, close
+#include "fsevents.h"     // copied from xnu/bsd/sys/fsevents.h
 
 std::atomic<bool> g_shouldStop {false};
 
