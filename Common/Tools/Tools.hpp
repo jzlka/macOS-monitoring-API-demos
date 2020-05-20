@@ -14,4 +14,7 @@
 - (std::string)cppString;
 @end
 
+uint64_t mach_time_to_msecs(uint64_t mach_time);
+uint64_t msecs_to_mach_time(uint64_t ms);
+
 #endif /* Tools_hpp */
