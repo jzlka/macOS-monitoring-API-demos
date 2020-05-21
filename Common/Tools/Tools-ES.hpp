@@ -8,6 +8,9 @@
 #ifndef Tools_ES_hpp
 #define Tools_ES_hpp
 
+#include <Foundation/Foundation.h>
+#include <map>
+
 extern const std::map<es_event_type_t, const std::string> g_eventTypeToStrMap;
 extern const std::map<es_respond_result_t, const std::string> g_respondResultToStrMap;
 

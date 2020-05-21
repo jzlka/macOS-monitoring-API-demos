@@ -5,14 +5,13 @@
 //  Created by Jozef on 18/05/2020.
 //
 // TODO: NOT ALL ES TYPES ARE SUPPORTED YET !!!
+// TODO: CHECK POINTERS FOR NULL!!! (i.e. exec) (and make unit tests for it)
 // Inspired by: https://gist.github.com/Omar-Ikram/8e6721d8e83a3da69b31d4c2612a68ba/
 
 #include <bsm/libbsm.h>
 #include <EndpointSecurity/EndpointSecurity.h>
-#include <Foundation/Foundation.h>
 #include <iostream>
 #include <mach/mach_time.h>
-#include <map>
 #include <vector>
 
 #include "Tools-ES.hpp"
@@ -95,7 +94,11 @@ std::string to_string(const es_string_token_t &esString)
 
 std::vector<const std::string> paths_from_file_event(const es_message_t * const msg)
 {
+#warning "Does not support all events!"
+
     std::vector<const std::string> eventPaths;
+    if (msg == nullptr)
+        return eventPaths;
 
     switch(msg->event_type) {
         // File System
@@ -290,7 +293,7 @@ std::ostream & operator << (std::ostream &out, const es_event_mount_t &event)
 std::ostream & operator << (std::ostream &out, const es_event_open_t &event)
 {
     char *flags = fflagstostr(event.fflag);
-    out << "event.open.fflag: " << flags;
+    out << "event.open.fflag: " << flags << "(0x" << std::hex << event.fflag << std::dec;
     out << std::endl << event.file;
     
     free(flags);
@@ -371,6 +374,9 @@ std::ostream & operator << (std::ostream &out, const es_event_kextunload_t &even
 // MARK: ES Types
 std::ostream & operator << (std::ostream &out, const es_message_t *msg)
 {
+    if (msg == nullptr)
+        return out;
+
     out << std::endl << "--- EVENT MESSAGE ----";
     out << std::endl << "event_type: " << g_eventTypeToStrMap.at(msg->event_type) << " (" << msg->event_type << ")";
      // Note: Message structure could change in future versions
@@ -476,56 +482,56 @@ std::ostream & operator << (std::ostream &out, const es_message_t *msg)
 
 std::ostream & operator << (std::ostream &out, const es_string_token_t &esString)
 {
-    out << (esString.data ? std::string(esString.data, esString.length) : "(null)");
+    out << (esString.data != nullptr ? std::string(esString.data, esString.length) : "(null)");
     return out;
 }
 
 std::ostream & operator << (std::ostream &out, const es_file_t *file)
 {
-    if(!file)
+    if (file == nullptr)
         return out;
 
-    out << " file.path: " << file->path;
-    out << std::endl << " file.path_truncated: " << file->path_truncated;
-    out << std::endl << " file.stats: " << "TO BE DONE";
+    out << "  file.path: " << file->path;
+    out << std::endl << "  file.path_truncated: " << file->path_truncated;
+    out << std::endl << "  file.stats: " << "TO BE DONE";
     return out;
 }
 
 std::ostream & operator << (std::ostream &out, const es_statfs_t *stats)
 {
-    if(!stats)
+    if (stats == nullptr)
         return out;
-    out << " statfs: " << "TO BE DONE";
+    out << "   statfs: " << "TO BE DONE";
     return out;
 }
 
 std::ostream & operator << (std::ostream &out, const es_process_t * const proc)
 {
-    if(!proc)
+    if (proc == nullptr)
         return out;
 
-    out << "  proc.pid: " << audit_token_to_pid(proc->audit_token) << std::endl;
-    out << "  proc.ppid: " << proc->ppid << std::endl;
-    out << "  proc.original_ppid: " << proc->original_ppid << std::endl;
-    out << "  proc.ruid: " << audit_token_to_ruid(proc->audit_token) << std::endl;
-    out << "  proc.euid: " << audit_token_to_euid(proc->audit_token) << std::endl;
-    out << "  proc.rgid: " << audit_token_to_rgid(proc->audit_token) << std::endl;
-    out << "  proc.egid: " << audit_token_to_egid(proc->audit_token) << std::endl;
-    out << "  proc.group_id: " << proc->group_id << std::endl;
-    out << "  proc.session_id: " << proc->session_id << std::endl;
-    out << "  proc.codesigning_flags: " << std::hex << proc->codesigning_flags << std::dec << std::endl;
-    out << "  proc.is_platform_binary: %s" << proc->is_platform_binary << std::endl;
-    out << "  proc.is_es_client: " << proc->is_es_client << std::endl;
-    out << "  proc.signing_id: " << proc->signing_id << std::endl;
-    out << "  proc.team_id: " << proc->team_id << std::endl;
+    out << "  proc.pid: " << audit_token_to_pid(proc->audit_token);
+    out << std::endl << "  proc.ppid: " << proc->ppid;
+    out << std::endl << "  proc.original_ppid: " << proc->original_ppid;
+    out << std::endl << "  proc.ruid: " << audit_token_to_ruid(proc->audit_token);
+    out << std::endl << "  proc.euid: " << audit_token_to_euid(proc->audit_token);
+    out << std::endl << "  proc.rgid: " << audit_token_to_rgid(proc->audit_token);
+    out << std::endl << "  proc.egid: " << audit_token_to_egid(proc->audit_token);
+    out << std::endl << "  proc.group_id: " << proc->group_id;
+    out << std::endl << "  proc.session_id: " << proc->session_id;
+    out << std::endl << "  proc.codesigning_flags: " << std::hex << proc->codesigning_flags << std::dec;
+    out << std::endl << "  proc.is_platform_binary: %s" << proc->is_platform_binary;
+    out << std::endl << "  proc.is_es_client: " << proc->is_es_client;
+    out << std::endl << "  proc.signing_id: " << proc->signing_id;
+    out << std::endl << "  proc.team_id: " << proc->team_id;
 
     // proc.cdhash
     NSMutableString *hash = [NSMutableString string];
     for(uint32_t i = 0; i < CS_CDHASH_LEN; i++) {
         [hash appendFormat:@"%x", proc->cdhash[i]];
     }
-    out << "  proc.cdhash: " << hash << std::endl;
-    out << "  proc.executable.path:\n" << proc->executable;
+    out << std::endl << "  proc.cdhash: " << hash;
+    out << std::endl << "  proc.executable.path:\n" << proc->executable;
 
     return out;
 }
