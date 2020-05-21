@@ -8,6 +8,7 @@
 #ifndef Tools_hpp
 #define Tools_hpp
 
+#include <Foundation/Foundation.h>
 #include <string_view>
 
 // MARK: - Custom Casts
@@ -18,6 +19,8 @@
 
 uint64_t mach_time_to_msecs(uint64_t mach_time);
 uint64_t msecs_to_mach_time(uint64_t ms);
+char *esfflagstostr(uint32_t flags);
+char *csflagstostr(uint32_t flags);
 
 
 // TODO: demagler

@@ -14,7 +14,9 @@
 #include <mach/mach_time.h>
 #include <vector>
 
+#include "Tools.hpp"
 #include "Tools-ES.hpp"
+#include "../logger.hpp"
 
 const inline std::map<es_event_type_t, const std::string> g_eventTypeToStrMap = {
     // Process
@@ -92,7 +94,7 @@ std::string to_string(const es_string_token_t &esString)
     return std::string(esString.data, esString.length);
 }
 
-std::vector<const std::string> paths_from_file_event(const es_message_t * const msg)
+std::vector<const std::string> paths_from_event(const es_message_t * const msg)
 {
 #warning "Does not support all events!"
 
@@ -182,6 +184,7 @@ std::vector<const std::string> paths_from_file_event(const es_message_t * const 
             eventPaths.push_back(to_string(msg->event.write.target->path));
             break;
         default:
+            panic("Unsupported event");
             break;
     }
     return eventPaths;
@@ -292,8 +295,8 @@ std::ostream & operator << (std::ostream &out, const es_event_mount_t &event)
 
 std::ostream & operator << (std::ostream &out, const es_event_open_t &event)
 {
-    char *flags = fflagstostr(event.fflag);
-    out << "event.open.fflag: " << flags << "(0x" << std::hex << event.fflag << std::dec;
+    char *flags = esfflagstostr(event.fflag);
+    out << "event.open.fflag: " << flags << " (0x" << std::hex << event.fflag << std::dec << ")";
     out << std::endl << event.file;
     
     free(flags);
@@ -377,7 +380,7 @@ std::ostream & operator << (std::ostream &out, const es_message_t *msg)
     if (msg == nullptr)
         return out;
 
-    out << std::endl << "--- EVENT MESSAGE ----";
+    out << "--- EVENT MESSAGE ----";
     out << std::endl << "event_type: " << g_eventTypeToStrMap.at(msg->event_type) << " (" << msg->event_type << ")";
      // Note: Message structure could change in future versions
     out << std::endl << "version: " << msg->version;
@@ -396,7 +399,8 @@ std::ostream & operator << (std::ostream &out, const es_message_t *msg)
 
     out << std::endl << "action_type: " << ((msg->action_type == ES_ACTION_TYPE_AUTH) ? "Auth" : "Notify");
     out << std::endl << "- process -\n" << msg->process;
-    out << std::endl << "- event -\n";
+    out << std::endl << "- event -";
+    out << std::endl << "sequence number: " << msg->seq_num << std::endl;
 
      // Type specific logging
     switch(msg->event_type) {
@@ -519,19 +523,21 @@ std::ostream & operator << (std::ostream &out, const es_process_t * const proc)
     out << std::endl << "  proc.egid: " << audit_token_to_egid(proc->audit_token);
     out << std::endl << "  proc.group_id: " << proc->group_id;
     out << std::endl << "  proc.session_id: " << proc->session_id;
-    out << std::endl << "  proc.codesigning_flags: " << std::hex << proc->codesigning_flags << std::dec;
-    out << std::endl << "  proc.is_platform_binary: %s" << proc->is_platform_binary;
+
+    char *flags = csflagstostr(proc->codesigning_flags);
+    out << std::endl << "  proc.codesigning_flags: " << flags << " (0x" << std::hex << proc->codesigning_flags << std::dec << ")";
+    free(flags);
+    flags = nullptr;
+
+    out << std::endl << "  proc.is_platform_binary: " << proc->is_platform_binary;
     out << std::endl << "  proc.is_es_client: " << proc->is_es_client;
     out << std::endl << "  proc.signing_id: " << proc->signing_id;
     out << std::endl << "  proc.team_id: " << proc->team_id;
 
-    // proc.cdhash
-    NSMutableString *hash = [NSMutableString string];
-    for(uint32_t i = 0; i < CS_CDHASH_LEN; i++) {
-        [hash appendFormat:@"%x", proc->cdhash[i]];
-    }
-    out << std::endl << "  proc.cdhash: " << hash;
-    out << std::endl << "  proc.executable.path:\n" << proc->executable;
+    out << std::endl << "  proc.cdhash: 0x" << std::hex;
+    for (unsigned int i=0; i != CS_CDHASH_LEN; i++)
+        out << (proc->cdhash[i]>>4) << (proc->cdhash[i]&0x0f);
+    out << std::dec << std::endl << "  proc.executable.path:\n" << proc->executable;
 
     return out;
 }
