@@ -19,7 +19,7 @@ FRAMEWORKS=-framework Foundation -framework SystemConfiguration /usr/lib/libEndp
 
 ########################     Variables     ##########################
 SHELL:=/bin/bash
-SRCDIRS=. ../../Common
+SRCDIRS=. ../../../Common
 OBJDIR=obj
 BINDIR=.
 
