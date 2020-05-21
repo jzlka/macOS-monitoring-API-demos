@@ -184,7 +184,6 @@ std::vector<const std::string> paths_from_event(const es_message_t * const msg)
             eventPaths.push_back(to_string(msg->event.write.target->path));
             break;
         default:
-            panic("Unsupported event");
             break;
     }
     return eventPaths;
