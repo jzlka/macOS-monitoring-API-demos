@@ -4,7 +4,7 @@
  *  @author     Jozef Zuzelka <xzuzel00@stud.fit.vutbr.cz>
  *  @date
  *   - Created: 07.12.2018 16:58
- *   - Edited:  03.12.2019 22:22
+ *   - Edited:  21.05.2020 20:25
  *  @version    1.0.0
  *  @par        g++: Apple LLVM version 10.0.0 (clang-1000.11.45.5)
  *  @bug
@@ -52,15 +52,14 @@ do { \
 #define D(...)
 
 #endif  // DEBUG_BUILD
+
 /*!
  * @enum    LogLevel
  * @brief   An enum representing debug prints verbosity
  */
-
-
 enum class LogLevel : uint8_t
 {
-    DEBUG,      //!< Debug messages
+    VERBOSE,    //!< Debug messages
     INFO,       //!< Informational messages
     WARNING,    //!< Warning messages
     ERR,        //!< Error messages
@@ -88,7 +87,6 @@ class Logger
     public:
         /*!
          * @brief       Singleton pattern
-         * @param[in]   ll  LogLevel
          * @return      A single instance of the logger
          */
         static Logger &getInstance()
@@ -102,10 +100,10 @@ class Logger
          * @param[in]   bitArray    Array to be printed
          * @param[in]   dataSize    Amount of data to be printed
          */
-        inline void printArray(const unsigned char *bitArray, const unsigned int dataSize)
+        inline void printArray(const uint8_t *bitArray, const size_t dataSize)
         {
             std::lock_guard<std::mutex> guard(m_debugPrint);
-            std::cerr << "Data (" << dataSize << "): ";
+            std::cerr << "(" << dataSize << "B): 0x";
             for (unsigned int i=0; i != dataSize; i++)
                 std::cerr << std::hex << (bitArray[i]>>4) << (bitArray[i]&0x0f) << std::dec;
             std::cerr << std::endl;
@@ -158,7 +156,7 @@ class Logger
                     setLogLevel(LogLevel::INFO);
                     break;
                 case 4:
-                    setLogLevel(LogLevel::DEBUG);
+                    setLogLevel(LogLevel::VERBOSE);
                     break;
                 default:
                     log(LogLevel::ERR, "Invalid verbosity level (", ll, ").");
