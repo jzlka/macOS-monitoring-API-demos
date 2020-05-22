@@ -28,6 +28,11 @@
 
 @end
 
+std::string to_string(const NSString *nsString)
+{
+    return std::string([nsString cStringUsingEncoding:NSStringEncodingConversionAllowLossy]);
+}
+
 
 // https://gist.github.com/leiless/de908154e4c1952186069fe330680b70
 uint64_t mach_time_to_msecs(uint64_t mach_time)
