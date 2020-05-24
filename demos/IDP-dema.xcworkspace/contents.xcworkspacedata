@@ -43,6 +43,9 @@
       location = "group:IOKit demo/IOKit demo.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:IOKit-driver demo/IOKit-driver demo.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:ESF demo/ESF demo.xcodeproj">
    </FileRef>
 </Workspace>
