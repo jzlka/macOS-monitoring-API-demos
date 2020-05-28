@@ -10,7 +10,6 @@
 class com_jzlka_driver_IOKit_demo : public IOService
 {
 OSDeclareDefaultStructors(com_jzlka_driver_IOKit_demo)
-    const char* m_demoName = "IOKit-driver";
 public:
     virtual bool init(OSDictionary *dictionary = 0) override;
     virtual void free(void) override;
