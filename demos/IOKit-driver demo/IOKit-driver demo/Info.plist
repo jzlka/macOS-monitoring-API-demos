@@ -24,8 +24,6 @@
 	<dict>
 		<key>IOKit_driver</key>
 		<dict>
-			<key>IOProbeScore</key>
-			<integer>9999</integer>
 			<key>idVendor</key>
 			<string>*</string>
 			<key>idProduct</key>
