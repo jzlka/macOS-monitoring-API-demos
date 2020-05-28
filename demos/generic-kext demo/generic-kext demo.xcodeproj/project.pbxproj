@@ -7,64 +7,57 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		093C478A247B110F00D47F5E /* IOKit_driver_demo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 093C4789247B110F00D47F5E /* IOKit_driver_demo.hpp */; };
-		093C478C247B110F00D47F5E /* IOKit_driver_demo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 093C478B247B110F00D47F5E /* IOKit_driver_demo.cpp */; };
-		093C4795247B116A00D47F5E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093C4794247B116A00D47F5E /* IOKit.framework */; };
+		09275C3F247FCA8F0057A737 /* generic_kext_demo.c in Sources */ = {isa = PBXBuildFile; fileRef = 09275C3E247FCA8F0057A737 /* generic_kext_demo.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		09275C49247FCE6A0057A737 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
-		093C4786247B110F00D47F5E /* IOKit-driver demo.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "IOKit-driver demo.kext"; sourceTree = BUILT_PRODUCTS_DIR; };
-		093C4789247B110F00D47F5E /* IOKit_driver_demo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IOKit_driver_demo.hpp; sourceTree = "<group>"; };
-		093C478B247B110F00D47F5E /* IOKit_driver_demo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IOKit_driver_demo.cpp; sourceTree = "<group>"; };
-		093C478D247B110F00D47F5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		093C4794247B116A00D47F5E /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		09275C3B247FCA8F0057A737 /* generic-kext demo.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "generic-kext demo.kext"; sourceTree = BUILT_PRODUCTS_DIR; };
+		09275C3E247FCA8F0057A737 /* generic_kext_demo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = generic_kext_demo.c; sourceTree = "<group>"; };
+		09275C40247FCA8F0057A737 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		09275C47247FCE260057A737 /* Kernel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kernel.framework; path = System/Library/Frameworks/Kernel.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		093C4783247B110F00D47F5E /* Frameworks */ = {
+		09275C38247FCA8F0057A737 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				093C4795247B116A00D47F5E /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		093C477C247B110F00D47F5E = {
+		09275C31247FCA8F0057A737 = {
 			isa = PBXGroup;
 			children = (
-				093C4788247B110F00D47F5E /* IOKit-driver demo */,
-				093C4787247B110F00D47F5E /* Products */,
-				093C4793247B116900D47F5E /* Frameworks */,
+				09275C3D247FCA8F0057A737 /* generic-kext demo */,
+				09275C3C247FCA8F0057A737 /* Products */,
+				09275C46247FCE260057A737 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		093C4787247B110F00D47F5E /* Products */ = {
+		09275C3C247FCA8F0057A737 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				093C4786247B110F00D47F5E /* IOKit-driver demo.kext */,
+				09275C3B247FCA8F0057A737 /* generic-kext demo.kext */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		093C4788247B110F00D47F5E /* IOKit-driver demo */ = {
+		09275C3D247FCA8F0057A737 /* generic-kext demo */ = {
 			isa = PBXGroup;
 			children = (
-				093C4789247B110F00D47F5E /* IOKit_driver_demo.hpp */,
-				093C478B247B110F00D47F5E /* IOKit_driver_demo.cpp */,
-				093C478D247B110F00D47F5E /* Info.plist */,
+				09275C3E247FCA8F0057A737 /* generic_kext_demo.c */,
+				09275C40247FCA8F0057A737 /* Info.plist */,
 			);
-			path = "IOKit-driver demo";
+			path = "generic-kext demo";
 			sourceTree = "<group>";
 		};
-		093C4793247B116900D47F5E /* Frameworks */ = {
+		09275C46247FCE260057A737 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				09275C49247FCE6A0057A737 /* CoreServices.framework */,
-				093C4794247B116A00D47F5E /* IOKit.framework */,
+				09275C47247FCE260057A737 /* Kernel.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -72,50 +65,49 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		093C4781247B110F00D47F5E /* Headers */ = {
+		09275C36247FCA8F0057A737 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				093C478A247B110F00D47F5E /* IOKit_driver_demo.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		093C4785247B110F00D47F5E /* IOKit-driver demo */ = {
+		09275C3A247FCA8F0057A737 /* generic-kext demo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 093C4790247B110F00D47F5E /* Build configuration list for PBXNativeTarget "IOKit-driver demo" */;
+			buildConfigurationList = 09275C43247FCA8F0057A737 /* Build configuration list for PBXNativeTarget "generic-kext demo" */;
 			buildPhases = (
-				093C4781247B110F00D47F5E /* Headers */,
-				093C4782247B110F00D47F5E /* Sources */,
-				093C4783247B110F00D47F5E /* Frameworks */,
-				093C4784247B110F00D47F5E /* Resources */,
+				09275C36247FCA8F0057A737 /* Headers */,
+				09275C37247FCA8F0057A737 /* Sources */,
+				09275C38247FCA8F0057A737 /* Frameworks */,
+				09275C39247FCA8F0057A737 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "IOKit-driver demo";
-			productName = "IOKit-driver demo";
-			productReference = 093C4786247B110F00D47F5E /* IOKit-driver demo.kext */;
+			name = "generic-kext demo";
+			productName = "generic-kext demo";
+			productReference = 09275C3B247FCA8F0057A737 /* generic-kext demo.kext */;
 			productType = "com.apple.product-type.kernel-extension";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		093C477D247B110F00D47F5E /* Project object */ = {
+		09275C32247FCA8F0057A737 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = "Jozef Zuzelka";
 				TargetAttributes = {
-					093C4785247B110F00D47F5E = {
+					09275C3A247FCA8F0057A737 = {
 						CreatedOnToolsVersion = 11.5;
 					};
 				};
 			};
-			buildConfigurationList = 093C4780247B110F00D47F5E /* Build configuration list for PBXProject "IOKit-driver demo" */;
+			buildConfigurationList = 09275C35247FCA8F0057A737 /* Build configuration list for PBXProject "generic-kext demo" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -123,18 +115,18 @@
 				en,
 				Base,
 			);
-			mainGroup = 093C477C247B110F00D47F5E;
-			productRefGroup = 093C4787247B110F00D47F5E /* Products */;
+			mainGroup = 09275C31247FCA8F0057A737;
+			productRefGroup = 09275C3C247FCA8F0057A737 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				093C4785247B110F00D47F5E /* IOKit-driver demo */,
+				09275C3A247FCA8F0057A737 /* generic-kext demo */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		093C4784247B110F00D47F5E /* Resources */ = {
+		09275C39247FCA8F0057A737 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -144,18 +136,18 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		093C4782247B110F00D47F5E /* Sources */ = {
+		09275C37247FCA8F0057A737 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				093C478C247B110F00D47F5E /* IOKit_driver_demo.cpp in Sources */,
+				09275C3F247FCA8F0057A737 /* generic_kext_demo.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		093C478E247B110F00D47F5E /* Debug */ = {
+		09275C41247FCA8F0057A737 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -213,7 +205,7 @@
 			};
 			name = Debug;
 		};
-		093C478F247B110F00D47F5E /* Release */ = {
+		09275C42247FCA8F0057A737 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -264,33 +256,33 @@
 			};
 			name = Release;
 		};
-		093C4791247B110F00D47F5E /* Debug */ = {
+		09275C44247FCA8F0057A737 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1.0.0d1;
 				DEVELOPMENT_TEAM = VN555WY3S4;
-				INFOPLIST_FILE = "IOKit-driver demo/Info.plist";
-				MODULE_NAME = com.jzlka.IOKit_driver_demo;
+				INFOPLIST_FILE = "generic-kext demo/Info.plist";
+				MODULE_NAME = com.jzlka.generic_kext_demo;
+				MODULE_START = generic_kext_demo_start;
+				MODULE_STOP = generic_kext_demo_stop;
 				MODULE_VERSION = 1.0.0d1;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jzlka.IOKit-driver-demo";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jzlka.generic-kext-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Debug;
 		};
-		093C4792247B110F00D47F5E /* Release */ = {
+		09275C45247FCA8F0057A737 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1.0.0d1;
 				DEVELOPMENT_TEAM = VN555WY3S4;
-				INFOPLIST_FILE = "IOKit-driver demo/Info.plist";
-				MODULE_NAME = com.jzlka.IOKit_driver_demo;
+				INFOPLIST_FILE = "generic-kext demo/Info.plist";
+				MODULE_NAME = com.jzlka.generic_kext_demo;
+				MODULE_START = generic_kext_demo_start;
+				MODULE_STOP = generic_kext_demo_stop;
 				MODULE_VERSION = 1.0.0d1;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jzlka.IOKit-driver-demo";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jzlka.generic-kext-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = kext;
 			};
@@ -299,25 +291,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		093C4780247B110F00D47F5E /* Build configuration list for PBXProject "IOKit-driver demo" */ = {
+		09275C35247FCA8F0057A737 /* Build configuration list for PBXProject "generic-kext demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				093C478E247B110F00D47F5E /* Debug */,
-				093C478F247B110F00D47F5E /* Release */,
+				09275C41247FCA8F0057A737 /* Debug */,
+				09275C42247FCA8F0057A737 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		093C4790247B110F00D47F5E /* Build configuration list for PBXNativeTarget "IOKit-driver demo" */ = {
+		09275C43247FCA8F0057A737 /* Build configuration list for PBXNativeTarget "generic-kext demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				093C4791247B110F00D47F5E /* Debug */,
-				093C4792247B110F00D47F5E /* Release */,
+				09275C44247FCA8F0057A737 /* Debug */,
+				09275C45247FCA8F0057A737 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 093C477D247B110F00D47F5E /* Project object */;
+	rootObject = 09275C32247FCA8F0057A737 /* Project object */;
 }

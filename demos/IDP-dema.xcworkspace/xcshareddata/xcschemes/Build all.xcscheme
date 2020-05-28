@@ -28,6 +28,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "09F7F8B3246AC8EC00BB0662"
+               BuildableName = "kevent demo"
+               BlueprintName = "kevent demo"
+               ReferencedContainer = "container:kevent demo/kevent demo.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "09F7F8C6246AFC8A00BB0662"
                BuildableName = "DiskArbitration demo"
                BlueprintName = "DiskArbitration demo"
@@ -84,10 +98,52 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "093C4785247B110F00D47F5E"
+               BuildableName = "IOKit-driver demo.kext"
+               BlueprintName = "IOKit-driver demo"
+               ReferencedContainer = "container:IOKit-driver demo/IOKit-driver demo.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "09F7F903246C0E3100BB0662"
                BuildableName = "OpenBSM demo"
                BlueprintName = "OpenBSM demo"
                ReferencedContainer = "container:OpenBSM demo/OpenBSM demo.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "09EBC7BA246EF58A00F6024B"
+               BuildableName = "ESF demo"
+               BlueprintName = "ESF demo"
+               ReferencedContainer = "container:ESF demo/ESF demo.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "09275C3A247FCA8F0057A737"
+               BuildableName = "generic-kext demo.kext"
+               BlueprintName = "generic-kext demo"
+               ReferencedContainer = "container:generic-kext demo/generic-kext demo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
