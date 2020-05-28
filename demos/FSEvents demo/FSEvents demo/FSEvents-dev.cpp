@@ -161,7 +161,7 @@ int main()
     clone_args.num_events = FSE_MAX_EVENTS;
     
     // Do it.
-    int rc = ioctl (fsed, FSEVENTS_CLONE, &clone_args);
+    ssize_t rc = ioctl (fsed, FSEVENTS_CLONE, &clone_args);
     // We no longer need original..
     close(fsed);
 
@@ -287,7 +287,7 @@ static char *getProcName(long pid)
         mib[0] = CTL_KERN;
         mib[1] = KERN_PROC;
         mib[2] = KERN_PROC_PID;
-        mib[3] = pid;
+        mib[3] = static_cast<int>(pid);
 
         if ((rc = sysctl(mib, 4, procName, &len, NULL,0)) < 0) {
             perror("trace facility failure, KERN_PROC_PID\n");
