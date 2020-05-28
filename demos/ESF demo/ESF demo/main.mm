@@ -58,7 +58,6 @@ const inline static es_event_type_t g_eventsOfInterest[] = {
     ES_EVENT_TYPE_NOTIFY_KEXTUNLOAD,
 };
 
-std::vector<const std::string> paths_from_event(const es_message_t *msg);
 void notify_event_handler(const es_message_t *msg);
 uint32_t flags_event_handler(const es_message_t *msg);
 es_auth_result_t auth_event_handler(const es_message_t *msg);
@@ -151,97 +150,6 @@ int main() {
     return EXIT_SUCCESS;
 }
 
-
-std::vector<const std::string> paths_from_event(const es_message_t *msg)
-{
-    std::vector<const std::string> eventPaths;
-
-    switch(msg->event_type) {
-        // File System
-        case ES_EVENT_TYPE_NOTIFY_ACCESS:
-            eventPaths.push_back(to_string(msg->event.access.target->path));
-            break;
-        case ES_EVENT_TYPE_AUTH_CREATE:
-        {
-            std::string path;
-            if (msg->event.create.destination_type == ES_DESTINATION_TYPE_EXISTING_FILE)
-                path = to_string(msg->event.create.destination.existing_file->path);
-            else {
-                path = to_string(msg->event.create.destination.new_path.dir->path)
-                        + "/"
-                        + to_string(msg->event.create.destination.new_path.filename);
-
-            }
-            eventPaths.push_back(path);
-            break;
-        }
-        case ES_EVENT_TYPE_AUTH_CLONE:
-            eventPaths.push_back(to_string(msg->event.clone.source->path));
-            eventPaths.push_back(to_string(msg->event.clone.target_dir->path)
-                                 + "/"
-                                 + to_string(msg->event.clone.target_name));
-            break;
-        case ES_EVENT_TYPE_NOTIFY_CLOSE:
-            eventPaths.push_back(to_string(msg->event.close.target->path));
-            break;
-        case ES_EVENT_TYPE_AUTH_FILE_PROVIDER_MATERIALIZE:
-            eventPaths.push_back(to_string(msg->event.file_provider_materialize.source->path));
-            eventPaths.push_back(to_string(msg->event.file_provider_materialize.target->path));
-            break;
-        case ES_EVENT_TYPE_AUTH_FILE_PROVIDER_UPDATE:
-            eventPaths.push_back(to_string(msg->event.file_provider_update.source->path));
-            eventPaths.push_back(to_string(msg->event.file_provider_update.target_path));
-            break;
-        case ES_EVENT_TYPE_NOTIFY_EXCHANGEDATA:
-            eventPaths.push_back(to_string(msg->event.exchangedata.file1->path));
-            eventPaths.push_back(to_string(msg->event.exchangedata.file2->path));
-            break;
-        case ES_EVENT_TYPE_AUTH_LINK:
-            eventPaths.push_back(to_string(msg->event.link.source->path));
-            eventPaths.push_back(to_string(msg->event.link.target_dir->path)
-                                 + "/"
-                                 + to_string(msg->event.link.target_filename));
-            break;
-        case ES_EVENT_TYPE_AUTH_OPEN:
-            eventPaths.push_back(to_string(msg->event.open.file->path));
-            break;
-        case ES_EVENT_TYPE_AUTH_READDIR:
-            eventPaths.push_back(to_string(msg->event.readdir.target->path));
-            break;
-        case ES_EVENT_TYPE_AUTH_READLINK:
-            eventPaths.push_back(to_string(msg->event.readlink.source->path));
-            break;
-        case ES_EVENT_TYPE_AUTH_RENAME:
-        {
-            eventPaths.push_back(to_string(msg->event.rename.source->path));
-
-            std::string path;
-            if (msg->event.rename.destination_type == ES_DESTINATION_TYPE_EXISTING_FILE)
-                path = to_string(msg->event.rename.destination.existing_file->path);
-            else {
-                path = to_string(msg->event.rename.destination.new_path.dir->path)
-                        + "/"
-                        + to_string(msg->event.rename.destination.new_path.filename);
-
-            }
-            eventPaths.push_back(path);
-            break;
-        }
-        case ES_EVENT_TYPE_AUTH_TRUNCATE:
-            eventPaths.push_back(to_string(msg->event.truncate.target->path));
-            break;
-        case ES_EVENT_TYPE_AUTH_UNLINK:
-            eventPaths.push_back(to_string(msg->event.unlink.parent_dir->path));
-            eventPaths.push_back(to_string(msg->event.unlink.target->path));
-            break;
-        case ES_EVENT_TYPE_NOTIFY_WRITE:
-            eventPaths.push_back(to_string(msg->event.write.target->path));
-            break;
-        default:
-            break;
-    }
-    return eventPaths;
-}
 
 static const auto find_occurence = [](const std::string& str) {
     for (const auto &path : g_blockedPaths) {
