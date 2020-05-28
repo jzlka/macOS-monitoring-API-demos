@@ -3,33 +3,52 @@
 //  IOKit-driver demo
 //
 //  Created by Jozef on 24/05/2019.
-//  Copyright © 20200 Jozef Zuzelka. All rights reserved.
+//  Copyright © 2020 Jozef Zuzelka. All rights reserved.
 //
 // sudo kextload "IOKit-driver demo.kext"
 // grep IOKitDemo /var/log/system.log
 
 #include <IOKit/IOLib.h>
+#include "IOKit_driver_demo.hpp"
+//#define super IOService
+
+// This required macro defines the class's constructors, destructors,
+// and several other methods I/O Kit requires.
+OSDefineMetaClassAndStructors(com_jzlka_driver_IOKit_demo, IOService)
+
+// Define the driver's superclass.
 #define super IOService
 
-OSDefineMetClassAndStructors(com_jzlka_driver_IOKitDemo, IOService)
-
-bool com_jzlka_driver_IOKitDemo::init(OSDictionary *dict)
+bool com_jzlka_driver_IOKit_demo::init(OSDictionary *dict)
 {
-    bool res = super::init(dict);
-    IOLog("IOKitDemo::init\n");
-    return res;
+    bool result = super::init(dict);
+    IOLog("Initializing\n");
+    return result;
 }
 
-IOService* com_jzlka_driver_IOKitDemo::probe(IOService *provider, SInt32 *score)
+void com_jzlka_driver_IOKit_demo::free(void)
 {
-    IOService *res = super::probe(provider, score);
-    IOLog("IOKitDemo::probe\n");
-    return res;
+    IOLog("Freeing\n");
+    super::free();
 }
 
-bool com_jzlka_driver_IOKitDemo::start(IOService *provider)
+IOService *com_jzlka_driver_IOKit_demo::probe(IOService *provider,
+    SInt32 *score)
 {
-    bool res = super::start(provider);
-    IOLog("IOKitDemo::start\n");
-    return res;
+    IOService *result = super::probe(provider, score);
+    IOLog("Probing\n");
+    return result;
+}
+
+bool com_jzlka_driver_IOKit_demo::start(IOService *provider)
+{
+    bool result = super::start(provider);
+    IOLog("Starting\n");
+    return result;
+}
+
+void com_jzlka_driver_IOKit_demo::stop(IOService *provider)
+{
+    IOLog("Stopping\n");
+    super::stop(provider);
 }

@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		093C478A247B110F00D47F5E /* IOKit_driver_demo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 093C4789247B110F00D47F5E /* IOKit_driver_demo.hpp */; };
 		093C478C247B110F00D47F5E /* IOKit_driver_demo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 093C478B247B110F00D47F5E /* IOKit_driver_demo.cpp */; };
-		093C4795247B116A00D47F5E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 093C4794247B116A00D47F5E /* IOKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		09275C49247FCE6A0057A737 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		09275C4B248020250057A737 /* Kernel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kernel.framework; path = System/Library/Frameworks/Kernel.framework; sourceTree = SDKROOT; };
 		093C4786247B110F00D47F5E /* IOKit-driver demo.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "IOKit-driver demo.kext"; sourceTree = BUILT_PRODUCTS_DIR; };
 		093C4789247B110F00D47F5E /* IOKit_driver_demo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IOKit_driver_demo.hpp; sourceTree = "<group>"; };
 		093C478B247B110F00D47F5E /* IOKit_driver_demo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IOKit_driver_demo.cpp; sourceTree = "<group>"; };
@@ -26,7 +26,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				093C4795247B116A00D47F5E /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +62,7 @@
 		093C4793247B116900D47F5E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				09275C4B248020250057A737 /* Kernel.framework */,
 				09275C49247FCE6A0057A737 /* CoreServices.framework */,
 				093C4794247B116A00D47F5E /* IOKit.framework */,
 			);
