@@ -160,6 +160,20 @@
                ReferencedContainer = "container:kauth demo/kauth demo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0971821924818F6F001FDB4E"
+               BuildableName = "macf demo.kext"
+               BlueprintName = "macf demo"
+               ReferencedContainer = "container:macf demo/macf demo.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

@@ -54,4 +54,7 @@
    <FileRef
       location = "group:kauth demo/kauth demo.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:macf demo/macf demo.xcodeproj">
+   </FileRef>
 </Workspace>
