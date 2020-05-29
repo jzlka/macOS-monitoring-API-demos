@@ -146,6 +146,20 @@
                ReferencedContainer = "container:generic-kext demo/generic-kext demo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "09761D3924814CEB00D9EA44"
+               BuildableName = "kauth demo.kext"
+               BlueprintName = "kauth demo"
+               ReferencedContainer = "container:kauth demo/kauth demo.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

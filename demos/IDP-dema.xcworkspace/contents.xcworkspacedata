@@ -51,4 +51,7 @@
    <FileRef
       location = "group:generic-kext demo/generic-kext demo.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:kauth demo/kauth demo.xcodeproj">
+   </FileRef>
 </Workspace>
