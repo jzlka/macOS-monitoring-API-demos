@@ -18,22 +18,6 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>IOKitPersonalities</key>
-	<dict>
-		<key>MACF_demo</key>
-		<dict>
-			<key>CFBundleIdentifier</key>
-			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-			<key>IOClass</key>
-			<string>com_jzlka_driver_MACF_demo</string>
-			<key>IOKitDebug</key>
-			<integer>65535</integer>
-			<key>IOProviderClass</key>
-			<string>IOResources</string>
-			<key>IOMatchCategory</key>
-			<string>com_jzlka_driver_MACF_demo</string>
-		</dict>
-	</dict>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2020 Jozef Zuzelka. All rights reserved.</string>
 	<key>OSBundleLibraries</key>
