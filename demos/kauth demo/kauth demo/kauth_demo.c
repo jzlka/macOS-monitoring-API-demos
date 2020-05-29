@@ -261,6 +261,7 @@ VnodeScopeListener(kauth_cred_t credential, void *idata, kauth_action_t action, 
     #pragma unused(idata)
     #pragma unused(arg3)
     int err;
+    int result = KAUTH_RESULT_DEFER;
     boolean_t isDir;
     size_t actionStrBufSize = 0;
 
@@ -306,6 +307,7 @@ VnodeScopeListener(kauth_cred_t credential, void *idata, kauth_action_t action, 
                 (vpPath  != NULL) ? vpPath : "<null>",
                 (dvpPath != NULL) ? dvpPath : "<null>"
             );
+            result = KAUTH_RESULT_DENY;
         }
     } else {
         printf("%s.VnodeScopeListener: Error %d.\n", g_demoName, err);
@@ -324,7 +326,7 @@ VnodeScopeListener(kauth_cred_t credential, void *idata, kauth_action_t action, 
         OSFree(dvpPath, MAXPATHLEN, gMallocTag);
     }
 
-    return KAUTH_RESULT_DEFER;
+    return result;
 }
 
 // gListener is our handle to the installed scope listener.  We need to
