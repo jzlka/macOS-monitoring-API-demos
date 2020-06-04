@@ -17,7 +17,10 @@
 #include <iostream>
 #include <atomic>
 
+#define CLR  "\x1B[0m"  //!< Terminal normal color escape sequence
+#define RED  "\x1B[31m" //!< Terminal red color escape sequence
 
+#define DEBUG_ARGS (__FILE__, ":", __LINE__, ":<", RED, __func__)
 
 #ifdef DEBUG_BUILD
 
