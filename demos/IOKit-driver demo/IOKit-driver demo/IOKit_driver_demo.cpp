@@ -18,7 +18,7 @@ OSDefineMetaClassAndStructors(com_jzlka_driver_IOKit_driver_demo, IOService)
 // Define the driver's superclass.
 #define super IOService
 
-const char* g_demoName = "IOKit-driver";
+static const char* g_demoName = "IOKit-driver";
 // The first instance method called on each instance of the driver class.
 // It's called only once on each instance.
 bool com_jzlka_driver_IOKit_driver_demo::init(OSDictionary *dict)

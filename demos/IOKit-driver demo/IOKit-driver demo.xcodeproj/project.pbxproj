@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		093C478A247B110F00D47F5E /* IOKit_driver_demo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 093C4789247B110F00D47F5E /* IOKit_driver_demo.hpp */; };
 		093C478C247B110F00D47F5E /* IOKit_driver_demo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 093C478B247B110F00D47F5E /* IOKit_driver_demo.cpp */; };
+		0982A3AD24870DFC00DFEB14 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0982A3AC24870DFC00DFEB14 /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -17,8 +18,8 @@
 		093C4786247B110F00D47F5E /* IOKit-driver demo.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "IOKit-driver demo.kext"; sourceTree = BUILT_PRODUCTS_DIR; };
 		093C4789247B110F00D47F5E /* IOKit_driver_demo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IOKit_driver_demo.hpp; sourceTree = "<group>"; };
 		093C478B247B110F00D47F5E /* IOKit_driver_demo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IOKit_driver_demo.cpp; sourceTree = "<group>"; };
-		093C478D247B110F00D47F5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		093C4794247B116A00D47F5E /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		0982A3AC24870DFC00DFEB14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +55,7 @@
 			children = (
 				093C4789247B110F00D47F5E /* IOKit_driver_demo.hpp */,
 				093C478B247B110F00D47F5E /* IOKit_driver_demo.cpp */,
-				093C478D247B110F00D47F5E /* Info.plist */,
+				0982A3AC24870DFC00DFEB14 /* Info.plist */,
 			);
 			path = "IOKit-driver demo";
 			sourceTree = "<group>";
@@ -138,6 +139,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0982A3AD24870DFC00DFEB14 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

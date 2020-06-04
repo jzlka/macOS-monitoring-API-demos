@@ -29,8 +29,8 @@ static mac_policy_handle_t handlep;
 
 kern_return_t generic_kext_demo_start(kmod_info_t * ki, void *d);
 kern_return_t generic_kext_demo_stop(kmod_info_t *ki, void *d);
-const char* g_demoName = "macf";
-const char* g_demoPath = "/tmp/macf-demo";
+static const char* g_demoName = "macf";
+static const char* g_demoPath = "/tmp/macf-demo";
 
 // The extension has been loaded. Register your callbacks..
 kern_return_t generic_kext_demo_start(kmod_info_t * ki, void *d)

@@ -22,7 +22,18 @@
 	<string>Copyright © 2020 Jozef Zuzelka. All rights reserved.</string>
 	<key>IOKitPersonalities</key>
 	<dict>
-		<key>IOKit_driver</key>
+		<key>PCI_driver</key>
+		<dict>
+			<key>IOClass</key>
+			<string>ExampleIntel82558</string>
+			<key>IOProviderClass</key>
+			<string>IOPCIDevice</string>
+			<key>IOPCIMatch</key>
+			<string>0x12298086</string>
+			<key>IOProbeScore</key>
+			<integer>400</integer>
+		</dict>
+		<key>USB_driver</key>
 		<dict>
 			<key>idVendor</key>
 			<string>*</string>
