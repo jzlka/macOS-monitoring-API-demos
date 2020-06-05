@@ -12,6 +12,7 @@
 #include <EndpointSecurity/EndpointSecurity.h>
 #include <iostream>
 #include <mach/mach_time.h>
+#include <sys/unistd.h>
 #include <vector>
 
 #include "Tools.hpp"
@@ -65,7 +66,7 @@ const inline std::map<es_respond_result_t, const std::string> g_respondResultToS
 
 const inline static std::map<es_destination_type_t, const std::string> g_destinationTypeToStrMap = {
     {ES_DESTINATION_TYPE_EXISTING_FILE, "ES_DESTINATION_TYPE_EXISTING_FILE"},
-    {ES_DESTINATION_TYPE_NEW_PATH, "ES_DESTINATION_TYPE_EXISTING_FILE"},
+    {ES_DESTINATION_TYPE_NEW_PATH, "ES_DESTINATION_TYPE_NEW_PATH"},
 };
 
 
@@ -223,7 +224,7 @@ std::ostream & operator << (std::ostream &out, const es_event_fork_t &event)
 // MARK: File System Events
 std::ostream & operator << (std::ostream &out, const es_event_access_t &event)
 {
-    out << "event.access.mode: " << event.mode;
+    out << "event.access.mode: " << std::hex << event.mode << std::dec << "(" << faflagstostr(event.mode) << ")";
     out << std::endl << "event.access.target:\n" << event.target;
     return out;
 }

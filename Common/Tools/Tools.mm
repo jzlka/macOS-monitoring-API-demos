@@ -165,3 +165,46 @@ char *csflagstostr(uint32_t flags)
     *dp = '\0';
     return (string);
 }
+
+
+static struct {
+    std::string name;
+    uint32_t flag;
+} const famapping[] = {
+    {"F_OK",        F_OK},
+    {"X_OK",        X_OK},
+    {"R_OK",        R_OK},
+    {"_READ_OK",    _READ_OK},
+    {"_WRITE_OK",   _WRITE_OK},
+    {"_EXECUTE_OK", _EXECUTE_OK},
+    {"_DELETE_OK",  _DELETE_OK},
+    {"_APPEND_OK",  _APPEND_OK},
+    {"_RMFILE_OK",  _RMFILE_OK},
+    {"_RATTR_OK",   _RATTR_OK},
+    {"_WATTR_OK",   _WATTR_OK},
+    {"_REXT_OK",    _REXT_OK},
+    {"_WEXT_OK",    _WEXT_OK},
+    {"_RPERM_OK",   _RPERM_OK},
+    {"_WPERM_OK",   _WPERM_OK},
+    {"_CHOWN_OK",   _CHOWN_OK},
+};
+
+std::string faflagstostr(uint32_t flags)
+{
+    if (flags == F_OK)
+        return "F_OK";
+
+    std::string string;
+
+    for (unsigned long i=0; i < sizeof(famapping); ++i) {
+        if (famapping[i].flag & flags) {
+            if (!string.empty())
+                string += ",";
+
+            string += famapping[i].name;
+            flags &= ~famapping[i].flag;
+        }
+    }
+
+    return string;
+}

@@ -8,6 +8,7 @@
 #ifndef Tools_ES_hpp
 #define Tools_ES_hpp
 
+#include <EndpointSecurity/EndpointSecurity.h>
 #include <Foundation/Foundation.h>
 #include <map>
 
