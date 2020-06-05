@@ -196,7 +196,7 @@ std::string faflagstostr(uint32_t flags)
 
     std::string string;
 
-    for (unsigned long i=0; i < sizeof(famapping); ++i) {
+    for (unsigned long i=0; i < sizeof(famapping) || !flags; ++i) {
         if (famapping[i].flag & flags) {
             if (!string.empty())
                 string += ",";

@@ -27,6 +27,7 @@ const inline std::map<es_event_type_t, const std::string> g_eventTypeToStrMap = 
     {ES_EVENT_TYPE_NOTIFY_FORK, "ES_EVENT_TYPE_NOTIFY_FORK"},
     // File System
     {ES_EVENT_TYPE_NOTIFY_ACCESS, "ES_EVENT_TYPE_NOTIFY_ACCESS"},
+    {ES_EVENT_TYPE_AUTH_CHDIR, "ES_EVENT_TYPE_AUTH_CHDIR"},
     {ES_EVENT_TYPE_AUTH_CLONE, "ES_EVENT_TYPE_AUTH_CLONE"},
     {ES_EVENT_TYPE_NOTIFY_CLOSE, "ES_EVENT_TYPE_NOTIFY_CLOSE"},
     {ES_EVENT_TYPE_AUTH_CREATE, "ES_EVENT_TYPE_AUTH_CREATE"},
@@ -108,6 +109,9 @@ std::vector<const std::string> paths_from_event(const es_message_t * const msg)
         // File System
         case ES_EVENT_TYPE_NOTIFY_ACCESS:
             eventPaths.push_back(to_string(msg->event.access.target->path));
+            break;
+        case ES_EVENT_TYPE_AUTH_CHDIR:
+            eventPaths.push_back(to_string(msg->event.chdir.target->path));
             break;
         case ES_EVENT_TYPE_AUTH_CREATE:
         {
@@ -237,7 +241,7 @@ std::ostream & operator << (std::ostream &out, const es_event_fork_t &event)
 // MARK: File System Events
 std::ostream & operator << (std::ostream &out, const es_event_access_t &event)
 {
-    out << "event.access.mode: " << std::hex << event.mode << std::dec << "(" << faflagstostr(event.mode) << ")";
+    out << "event.access.mode: 0x" << std::hex << event.mode << std::dec << "(" << faflagstostr(event.mode) << ")";
     out << std::endl << "event.access.target:\n" << event.target;
     return out;
 }
@@ -247,6 +251,12 @@ std::ostream & operator << (std::ostream &out, const es_event_clone_t &event)
     out << "event.clone.source:\n" << event.source;
     out << std::endl << "event.clone.target_dir:\n" << event.target_dir;
     out << std::endl << "event.clone.target_name: " << event.target_name;
+    return out;
+}
+
+std::ostream & operator << (std::ostream &out, const es_event_chdir_t &chdir)
+{
+    out << "event.chdir.target:\n" << chdir.target;
     return out;
 }
 
@@ -436,6 +446,9 @@ std::ostream & operator << (std::ostream &out, const es_message_t *msg)
             break;
         case ES_EVENT_TYPE_NOTIFY_CLOSE:
             out << msg->event.close;
+            break;
+        case ES_EVENT_TYPE_AUTH_CHDIR:
+            out << msg->event.chdir;
             break;
         case ES_EVENT_TYPE_AUTH_CREATE:
             out << msg->event.create;
