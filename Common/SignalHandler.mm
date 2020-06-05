@@ -10,6 +10,7 @@
 #include <iostream>
 #include <vector>
 
+#include "logger.hpp"
 #include "SignalHandler.hpp"
 
 // Source: https://github.com/HelmutJ/CocoaSampleCode/blob/master/PreLoginAgents/PreLoginAgentCarbon/main.c & Mark Dalrymple, Advanced Mac OS X Programming: The Big Nerd Ranch Guide
@@ -88,7 +89,7 @@ void HandleSignalFromRunLoop(CFFileDescriptorRef f, CFOptionFlags callBackTypes,
     #pragma unused(f)
     #pragma unused(callBackTypes)
     #pragma unused(info)
-    
-    std::cerr << "Signal received! Exiting." << std::endl;
+
+    Logger::getInstance().log(LogLevel::INFO, "(☞ﾟヮﾟ)☞ Interrupt signal () received, exiting ฅ^•ﻌ•^ฅ.");
     CFRunLoopStop(CFRunLoopGetCurrent());
 }

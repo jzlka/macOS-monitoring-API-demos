@@ -34,7 +34,7 @@
 		09901168247431CF00DDFE69 /* Tools-ES.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "Tools-ES.hpp"; sourceTree = "<group>"; };
 		09901169247431CF00DDFE69 /* Tools.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Tools.mm; sourceTree = "<group>"; };
 		0990116A247431CF00DDFE69 /* Tools.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Tools.hpp; sourceTree = "<group>"; };
-		0990116B247431CF00DDFE69 /* SignalHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SignalHandler.cpp; sourceTree = "<group>"; };
+		0990116B247431CF00DDFE69 /* SignalHandler.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SignalHandler.mm; sourceTree = "<group>"; };
 		09EBC7BB246EF58A00F6024B /* ESF demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "ESF demo"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09EBC7BE246EF58B00F6024B /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		09EBC7C6246EF78400F6024B /* libEndpointSecurity.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libEndpointSecurity.tbd; path = usr/lib/libEndpointSecurity.tbd; sourceTree = SDKROOT; };
@@ -61,7 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				09901166247431CF00DDFE69 /* Tools */,
-				0990116B247431CF00DDFE69 /* SignalHandler.cpp */,
+				0990116B247431CF00DDFE69 /* SignalHandler.mm */,
 				09901165247431CF00DDFE69 /* SignalHandler.hpp */,
 			);
 			name = Common;

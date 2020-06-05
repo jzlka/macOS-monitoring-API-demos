@@ -16,6 +16,7 @@
 #include <mutex>
 #include <iostream>
 #include <atomic>
+#include "Tools/Tools.hpp"
 
 #define CLR  "\x1B[0m"  //!< Terminal normal color escape sequence
 #define RED  "\x1B[31m" //!< Terminal red color escape sequence
@@ -125,7 +126,8 @@ class Logger
             if (ll >= m_logLevel)
             {
                 std::lock_guard<std::mutex> guard(m_debugPrint);
-                std::cerr << msgPrefix[static_cast<int>(ll)] << " ";
+                std::cerr << current_time_and_date();
+                std::cerr << " " << msgPrefix[static_cast<int>(ll)] << " ";
                 (std::cerr << ... << args) << std::endl;
             }
         }

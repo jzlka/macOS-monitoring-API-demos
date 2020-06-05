@@ -10,7 +10,7 @@
 		096009B62469C8870003C8FF /* FSEvents-dev.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 096009A52469B45F0003C8FF /* FSEvents-dev.cpp */; };
 		096009B72469C8870003C8FF /* fsevents.h in Sources */ = {isa = PBXBuildFile; fileRef = 096009A72469C6620003C8FF /* fsevents.h */; };
 		096009B82469C8EC0003C8FF /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09F0FB3224695E6000E09485 /* CoreFoundation.framework */; };
-		0990115124742C7C00DDFE69 /* SignalHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0990114F24742B1600DDFE69 /* SignalHandler.cpp */; };
+		0990115124742C7C00DDFE69 /* SignalHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0990114F24742B1600DDFE69 /* SignalHandler.mm */; };
 		09F0FB312469450800E09485 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09F0FB302469450700E09485 /* CoreServices.framework */; };
 		09F0FB3324695E6000E09485 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09F0FB3224695E6000E09485 /* CoreFoundation.framework */; };
 		09F0FB3924695F7900E09485 /* FSEvents-API.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09F0FB28246943F000E09485 /* FSEvents-API.cpp */; };
@@ -46,7 +46,7 @@
 		0990114C24742B1600DDFE69 /* Tools-ES.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "Tools-ES.hpp"; sourceTree = "<group>"; };
 		0990114D24742B1600DDFE69 /* Tools.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Tools.mm; sourceTree = "<group>"; };
 		0990114E24742B1600DDFE69 /* Tools.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Tools.hpp; sourceTree = "<group>"; };
-		0990114F24742B1600DDFE69 /* SignalHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SignalHandler.cpp; sourceTree = "<group>"; };
+		0990114F24742B1600DDFE69 /* SignalHandler.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SignalHandler.mm; sourceTree = "<group>"; };
 		09F0FB25246943F000E09485 /* FSEvents-API demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "FSEvents-API demo"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09F0FB28246943F000E09485 /* FSEvents-API.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "FSEvents-API.cpp"; sourceTree = "<group>"; };
 		09F0FB302469450700E09485 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
@@ -78,7 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				0990114A24742B1600DDFE69 /* Tools */,
-				0990114F24742B1600DDFE69 /* SignalHandler.cpp */,
+				0990114F24742B1600DDFE69 /* SignalHandler.mm */,
 				0990114924742B1600DDFE69 /* SignalHandler.hpp */,
 			);
 			name = Common;
@@ -221,7 +221,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0990115124742C7C00DDFE69 /* SignalHandler.cpp in Sources */,
+				0990115124742C7C00DDFE69 /* SignalHandler.mm in Sources */,
 				09F0FB3924695F7900E09485 /* FSEvents-API.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

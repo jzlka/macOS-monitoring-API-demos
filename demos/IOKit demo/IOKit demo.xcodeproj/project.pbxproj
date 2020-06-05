@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		099011632474306900DDFE69 /* SignalHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 099011622474305300DDFE69 /* SignalHandler.cpp */; };
+		099011632474306900DDFE69 /* SignalHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 099011622474305300DDFE69 /* SignalHandler.mm */; };
 		09F7F8EC246B063000BB0662 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09F7F8EB246B063000BB0662 /* main.cpp */; };
 		09F7F8F4246B08F100BB0662 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09F7F8F3246B08F100BB0662 /* CoreFoundation.framework */; };
 		09F7F8F6246B08F500BB0662 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09F7F8F5246B08F500BB0662 /* IOKit.framework */; };
@@ -31,7 +31,7 @@
 		0990115F2474305300DDFE69 /* Tools-ES.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "Tools-ES.hpp"; sourceTree = "<group>"; };
 		099011602474305300DDFE69 /* Tools.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Tools.mm; sourceTree = "<group>"; };
 		099011612474305300DDFE69 /* Tools.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Tools.hpp; sourceTree = "<group>"; };
-		099011622474305300DDFE69 /* SignalHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SignalHandler.cpp; sourceTree = "<group>"; };
+		099011622474305300DDFE69 /* SignalHandler.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SignalHandler.mm; sourceTree = "<group>"; };
 		09F7F8E8246B063000BB0662 /* IOKit demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "IOKit demo"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09F7F8EB246B063000BB0662 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		09F7F8F3246B08F100BB0662 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -55,7 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				0990115D2474305300DDFE69 /* Tools */,
-				099011622474305300DDFE69 /* SignalHandler.cpp */,
+				099011622474305300DDFE69 /* SignalHandler.mm */,
 				0990115C2474305300DDFE69 /* SignalHandler.hpp */,
 			);
 			name = Common;
@@ -165,7 +165,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				099011632474306900DDFE69 /* SignalHandler.cpp in Sources */,
+				099011632474306900DDFE69 /* SignalHandler.mm in Sources */,
 				09F7F8EC246B063000BB0662 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

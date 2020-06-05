@@ -21,7 +21,7 @@
          </FileRef>
       </Group>
       <FileRef
-         location = "group:SignalHandler.cpp">
+         location = "group:/Volumes/Data/Skola/FIT VUT/12.semester/IDP/kod/Common/SignalHandler.mm">
       </FileRef>
       <FileRef
          location = "group:SignalHandler.hpp">

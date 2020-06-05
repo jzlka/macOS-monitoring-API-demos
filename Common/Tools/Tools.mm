@@ -5,10 +5,13 @@
 //  Created by Jozef on 18/05/2020.
 //
 
+#include <chrono>
 #include <Foundation/Foundation.h>
 #include <Kernel/kern/cs_blobs.h>
+#include <iomanip>
 #include <mach/mach_time.h>
 #include <stdexcept>
+#include <sstream>
 #include <string>
 #include <sys/fcntl.h>
 #include "Tools.hpp"
@@ -51,6 +54,22 @@ uint64_t msecs_to_mach_time(uint64_t ms)
     if (e != KERN_SUCCESS)
         throw std::invalid_argument("Could not convert mach time to msecs!");
     return (ms * tb.denom * NSEC_PER_MSEC) / tb.numer;
+}
+
+//https://stackoverflow.com/questions/17223096/outputting-date-and-time-in-c-using-stdchrono
+std::string convert_to_time_and_date(std::chrono::time_point<std::chrono::system_clock> time)
+{
+    auto in_time_t = std::chrono::system_clock::to_time_t(time);
+
+    std::stringstream ss;
+    ss << std::put_time(std::localtime(&in_time_t), "%Y%m%d%H%M%S");
+    return ss.str();
+}
+
+std::string current_time_and_date()
+{
+    auto now = std::chrono::system_clock::now();
+    return convert_to_time_and_date(now);
 }
 
 

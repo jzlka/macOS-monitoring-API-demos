@@ -8,6 +8,7 @@
 #ifndef Tools_hpp
 #define Tools_hpp
 
+#include <chrono>
 #include <Foundation/Foundation.h>
 #include <string_view>
 
@@ -21,6 +22,8 @@ std::string to_string(const NSString *nsString);
 
 uint64_t mach_time_to_msecs(uint64_t mach_time);
 uint64_t msecs_to_mach_time(uint64_t ms);
+std::string convert_to_time_and_date(std::chrono::time_point<std::chrono::system_clock> time);
+std::string current_time_and_date();
 char *esfflagstostr(uint32_t flags);
 char *csflagstostr(uint32_t flags);
 std::string faflagstostr(uint32_t flags);
