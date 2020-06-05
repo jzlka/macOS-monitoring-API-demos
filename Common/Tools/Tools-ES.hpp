@@ -8,6 +8,7 @@
 #ifndef Tools_ES_hpp
 #define Tools_ES_hpp
 
+#include <any>
 #include <EndpointSecurity/EndpointSecurity.h>
 #include <Foundation/Foundation.h>
 #include <map>
@@ -22,6 +23,7 @@ extern const std::map<es_respond_result_t, const std::string> g_respondResultToS
 
 std::string to_string(const es_string_token_t &esString);
 std::vector<const std::string> paths_from_event(const es_message_t * const msg);
+std::any getDefaultESResponse(const es_message_t * const msg);
 
 // MARK: - Endpoint Security Logging
 // MARK: Process Events

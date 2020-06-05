@@ -8,6 +8,7 @@
 // TODO: CHECK POINTERS FOR NULL!!! (i.e. exec) (and make unit tests for it)
 // Inspired by: https://gist.github.com/Omar-Ikram/8e6721d8e83a3da69b31d4c2612a68ba/
 
+#include <any>
 #include <bsm/libbsm.h>
 #include <EndpointSecurity/EndpointSecurity.h>
 #include <iostream>
@@ -190,7 +191,19 @@ std::vector<const std::string> paths_from_event(const es_message_t * const msg)
     return eventPaths;
 }
 
+std::any getDefaultESResponse(const es_message_t * const msg)
+{
+    if (msg == nullptr)
+        return std::nullopt;
 
+    std::any ret;
+    if (msg->event_type == ES_EVENT_TYPE_AUTH_OPEN)
+       ret = static_cast<uint32_t>(msg->event.open.fflag);
+    else
+       ret = static_cast<es_auth_result_t>(ES_AUTH_RESULT_ALLOW);
+
+    return ret;
+}
 
 // MARK: - Endpoint Security Logging
 // MARK: Process Events
