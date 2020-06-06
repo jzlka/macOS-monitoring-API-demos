@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0990115A24742E9F00DDFE69 /* SignalHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0990115924742E9700DDFE69 /* SignalHandler.mm */; };
+		09C7A5ED248B73DD00CBDCBE /* Tools.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0990115724742E9700DDFE69 /* Tools.mm */; };
 		09F7F8CB246AFC8A00BB0662 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09F7F8CA246AFC8A00BB0662 /* main.cpp */; };
 		09F7F8D3246B02EF00BB0662 /* DiskArbitration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09F7F8D2246B02EF00BB0662 /* DiskArbitration.framework */; };
 		09F7F8D5246B02F300BB0662 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09F7F8D4246B02F300BB0662 /* CoreFoundation.framework */; };
@@ -165,6 +166,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09C7A5ED248B73DD00CBDCBE /* Tools.mm in Sources */,
 				0990115A24742E9F00DDFE69 /* SignalHandler.mm in Sources */,
 				09F7F8CB246AFC8A00BB0662 /* main.cpp in Sources */,
 			);

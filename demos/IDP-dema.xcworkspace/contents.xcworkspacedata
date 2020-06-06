@@ -28,6 +28,24 @@
       </FileRef>
    </Group>
    <FileRef
+      location = "group:generic-kext demo/generic-kext demo.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:kauth demo/kauth demo.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:macf demo/macf demo.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:IOKit-driver demo/IOKit-driver demo.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:dext demo/dext demo.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:ESF demo/ESF demo.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:kevent demo/kevent demo.xcodeproj">
    </FileRef>
    <FileRef
@@ -41,20 +59,5 @@
    </FileRef>
    <FileRef
       location = "group:IOKit demo/IOKit demo.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:IOKit-driver demo/IOKit-driver demo.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:ESF demo/ESF demo.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:generic-kext demo/generic-kext demo.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:kauth demo/kauth demo.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:macf demo/macf demo.xcodeproj">
    </FileRef>
 </Workspace>

@@ -15,8 +15,6 @@
 #pragma clang diagnostic ignored "-Wdocumentation"
 #pragma clang diagnostic ignored "-Wsign-conversion"
 
-#include <mach/mach_types.h>
-
 #include <kern/assert.h>
 #include <mach/mach_types.h>
 #include <libkern/libkern.h>

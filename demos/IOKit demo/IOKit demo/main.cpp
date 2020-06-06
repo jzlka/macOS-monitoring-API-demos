@@ -81,7 +81,7 @@ void IOKitMonitor::Init()
     notification_port = IONotificationPortCreate(kIOMasterPortDefault);
     event_source = IONotificationPortGetRunLoopSource(notification_port);
     CFRunLoopAddSource(CFRunLoopGetCurrent(), event_source, kCFRunLoopDefaultMode);
-    kern_return_t kr = IOServiceAddMatchingNotification(notification_port, kIOFirstMatchNotification,
+    IOServiceAddMatchingNotification(notification_port, kIOFirstMatchNotification,
                                           matching_dict, IOKitMonitorTrampoline::DeviceAdded, this, &iter);
     
     // Remove our interest in the source. Now the run loop is responsible for retaining it until it's done
@@ -181,7 +181,7 @@ void IOKitMonitor::DeviceNotification(void* refCon, io_service_t service, natura
         std::cout << "Device removed: " << name << std::endl;;
         
         // Remove the driver state change notification.
-        kern_return_t kr = IOObjectRelease(myDriverData->second->notification);
+        IOObjectRelease(myDriverData->second->notification);
         // Release our reference to the driver object.
         IOObjectRelease(myDriverData->second->service);
         // Release our structure that holds the driver connection.

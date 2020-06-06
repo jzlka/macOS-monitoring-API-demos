@@ -11,6 +11,8 @@
 		096009B72469C8870003C8FF /* fsevents.h in Sources */ = {isa = PBXBuildFile; fileRef = 096009A72469C6620003C8FF /* fsevents.h */; };
 		096009B82469C8EC0003C8FF /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09F0FB3224695E6000E09485 /* CoreFoundation.framework */; };
 		0990115124742C7C00DDFE69 /* SignalHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0990114F24742B1600DDFE69 /* SignalHandler.mm */; };
+		09C7A5EB248B73B900CBDCBE /* Tools.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0990114D24742B1600DDFE69 /* Tools.mm */; };
+		09C7A5EC248B73BE00CBDCBE /* Tools.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0990114D24742B1600DDFE69 /* Tools.mm */; };
 		09F0FB312469450800E09485 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09F0FB302469450700E09485 /* CoreServices.framework */; };
 		09F0FB3324695E6000E09485 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09F0FB3224695E6000E09485 /* CoreFoundation.framework */; };
 		09F0FB3924695F7900E09485 /* FSEvents-API.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09F0FB28246943F000E09485 /* FSEvents-API.cpp */; };
@@ -212,6 +214,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09C7A5EC248B73BE00CBDCBE /* Tools.mm in Sources */,
 				096009B62469C8870003C8FF /* FSEvents-dev.cpp in Sources */,
 				096009B72469C8870003C8FF /* fsevents.h in Sources */,
 			);
@@ -221,6 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09C7A5EB248B73B900CBDCBE /* Tools.mm in Sources */,
 				0990115124742C7C00DDFE69 /* SignalHandler.mm in Sources */,
 				09F0FB3924695F7900E09485 /* FSEvents-API.cpp in Sources */,
 			);

@@ -1,0 +1,35 @@
+//
+//  dext_demo.iig
+//  dext demo
+//
+//  Created by Jozef on 06/06/2020.
+//  Copyright © 2020 Jozef Zuzelka. All rights reserved.
+//
+
+#ifndef dext_demo_h
+#define dext_demo_h
+
+#include <Availability.h>
+#include <DriverKit/IOService.iig>
+
+//class OSAction;
+class dext_demo: public IOService
+{
+public:
+    virtual bool init() override;
+    virtual kern_return_t Start(IOService *provider) override;
+    virtual kern_return_t Stop(IOService *provider) override;
+    virtual void free() override;
+
+protected:
+    virtual void ReadComplete(OSAction *actifon,
+                              IOReturn  statfus,
+                              uint32_t  actufalByteCount,
+                              uint64_t  complfetionTimestamp);
+                              //TYPE(IOUSBHostPipe::CompleteAsyncIO);
+                              // says: Assertion failed: (meth->typeMethod), function Construct, file iig/iig.cpp, line 998.
+
+
+};
+
+#endif /* dext_demo_h */
