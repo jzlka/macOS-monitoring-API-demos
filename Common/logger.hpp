@@ -133,6 +133,15 @@ class Logger
         }
 
         /*!
+         * @brief   Gets m_logLevel;
+         * @return  Current LogLevel
+         */
+        LogLevel getLogLevel()
+        {
+            return m_logLevel;
+        }
+
+        /*!
          * @brief       Sets m_logLevel;
          * @param[in]   ll  LogLevel
          */
