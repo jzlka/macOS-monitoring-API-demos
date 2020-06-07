@@ -97,11 +97,11 @@ std::string to_string(const es_string_token_t &esString)
     return std::string(esString.data, esString.length);
 }
 
-std::vector<const std::string> paths_from_event(const es_message_t * const msg)
+std::vector<std::string> paths_from_event(const es_message_t * const msg)
 {
 #warning "Does not support all events!"
 
-    std::vector<const std::string> eventPaths;
+    std::vector<std::string> eventPaths;
     if (msg == nullptr)
         return eventPaths;
 

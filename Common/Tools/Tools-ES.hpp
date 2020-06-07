@@ -22,7 +22,7 @@ extern const std::map<es_respond_result_t, const std::string> g_respondResultToS
 @end
 
 std::string to_string(const es_string_token_t &esString);
-std::vector<const std::string> paths_from_event(const es_message_t * const msg);
+std::vector<std::string> paths_from_event(const es_message_t * const msg);
 std::any getDefaultESResponse(const es_message_t * const msg);
 
 // MARK: - Endpoint Security Logging
