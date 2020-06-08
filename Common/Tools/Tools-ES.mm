@@ -99,7 +99,7 @@ std::string to_string(const es_string_token_t &esString)
 
 std::vector<std::string> paths_from_event(const es_message_t * const msg)
 {
-#warning "Does not support all events!"
+#pragma message("Does not support all events!")
 
     std::vector<std::string> eventPaths;
     if (msg == nullptr)
