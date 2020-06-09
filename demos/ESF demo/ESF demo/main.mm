@@ -183,7 +183,7 @@ void notify_event_handler(const es_message_t *msg)
         case ES_EVENT_TYPE_NOTIFY_EXCHANGEDATA:
         case ES_EVENT_TYPE_NOTIFY_WRITE:
         {
-            const std::vector<const std::string> eventPaths = paths_from_event(msg);
+            const std::vector<std::string> eventPaths = paths_from_event(msg);
 
             // Block if path is in our blocked paths list
             if (std::any_of(eventPaths.cbegin(), eventPaths.cend(), find_occurence)) {
@@ -207,7 +207,7 @@ uint32_t flags_event_handler(const es_message_t *msg)
     switch(msg->event_type) {
         case ES_EVENT_TYPE_AUTH_OPEN:
         {
-            const std::vector<const std::string> eventPaths = paths_from_event(msg);
+            const std::vector<std::string> eventPaths = paths_from_event(msg);
 
             // Block if path is in our blocked paths list
             if (std::any_of(eventPaths.cbegin(), eventPaths.cend(), find_occurence)) {
@@ -253,7 +253,7 @@ es_auth_result_t auth_event_handler(const es_message_t *msg)
         case ES_EVENT_TYPE_AUTH_TRUNCATE:
         case ES_EVENT_TYPE_AUTH_UNLINK:
         {
-            const std::vector<const std::string> eventPaths = paths_from_event(msg);
+            const std::vector<std::string> eventPaths = paths_from_event(msg);
 
             // Block if path is in our blocked paths list
             if (std::any_of(eventPaths.cbegin(), eventPaths.cend(), find_occurence)) {

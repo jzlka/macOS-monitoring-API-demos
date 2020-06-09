@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		09C7A618248FDEBF00CBDCBE /* kdebug.c in Sources */ = {isa = PBXBuildFile; fileRef = 09C7A617248FDEBF00CBDCBE /* kdebug.c */; };
-		09C7A620248FE75400CBDCBE /* Kernel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09C7A61F248FE75300CBDCBE /* Kernel.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,7 +33,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09C7A620248FE75400CBDCBE /* Kernel.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,8 +251,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VN555WY3S4;
 				ENABLE_HARDENED_RUNTIME = YES;
-				HEADER_SEARCH_PATHS = "../../_apple-sources/xnu-6153.11.26/bsd";
+				HEADER_SEARCH_PATHS = "../../_apple-sources/xnu-6153.11.26/bsd/**";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.14;
 			};
 			name = Debug;
 		};
@@ -264,8 +264,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VN555WY3S4;
 				ENABLE_HARDENED_RUNTIME = YES;
-				HEADER_SEARCH_PATHS = "../../_apple-sources/xnu-6153.11.26/bsd";
+				HEADER_SEARCH_PATHS = "../../_apple-sources/xnu-6153.11.26/bsd/**";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.14;
 			};
 			name = Release;
 		};
