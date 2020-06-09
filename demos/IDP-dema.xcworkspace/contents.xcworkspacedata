@@ -46,6 +46,9 @@
       location = "group:ESF demo/ESF demo.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:kdebug demo/kdebug demo.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:kevent demo/kevent demo.xcodeproj">
    </FileRef>
    <FileRef
