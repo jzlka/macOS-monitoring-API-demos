@@ -8,6 +8,8 @@
 // Sources:
 // Amit Singh - Mac OS X Internals: A System's Approach
 
+#pragma message("Use attached makefile to build the project.")
+
 #define PROGNAME "kdebug"
 #include <stdlib.h>
 #include <stdio.h>
@@ -215,6 +217,11 @@ void ukdbg_read(char *buf, size_t *len)
 
 int main(int argc, char **argv)
 {
+    const char* demoName = "kdebug";
+
+    printf("(%s) Hello, World!\n", demoName);
+    printf("Point of interest: %s", "All the events!\n");
+
     int i, count;
     kd_buf *kd;
     char *kd_buf_memory;
@@ -290,6 +297,3 @@ int main(int argc, char **argv)
         usleep(KDBG_SAMPLE_INTERVAL);
     }
 }
-
-
-// $ gcc -Wall -I /path/to/xnu/bsd/ -o kdebug kdebug.c
