@@ -169,7 +169,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "09C7A5F7248B82B400CBDCBE"
-               BuildableName = "com.jzlka.dext-demo.dext"
+               BuildableName = "com.test.dext-demo.dext"
                BlueprintName = "dext demo"
                ReferencedContainer = "container:dext demo/dext demo.xcodeproj">
             </BuildableReference>

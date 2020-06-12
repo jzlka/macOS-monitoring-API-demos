@@ -31,8 +31,8 @@
 // They're created when we start and destroyed when we stop.
 static OSMallocTag  gMallocTag = NULL;
 
-#define BUNDLE_NAME "com_jzlka_kauth_demo"
-#define BUNDLE_ID "com.jzlka.kauth-demo"
+#define BUNDLE_NAME "com_test_kauth_demo"
+#define BUNDLE_ID "com.test.kauth-demo"
 const char* g_demoName = "kauth";
 const char* g_demoPath = "/tmp/kauth-demo";
 

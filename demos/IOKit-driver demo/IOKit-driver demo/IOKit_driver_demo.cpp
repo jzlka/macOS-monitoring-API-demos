@@ -13,7 +13,7 @@
 
 // This required macro defines the class's constructors, destructors,
 // and several other methods I/O Kit requires.
-OSDefineMetaClassAndStructors(com_jzlka_driver_IOKit_driver_demo, IOService)
+OSDefineMetaClassAndStructors(com_test_driver_IOKit_driver_demo, IOService)
 
 // Define the driver's superclass.
 #define super IOService
@@ -21,7 +21,7 @@ OSDefineMetaClassAndStructors(com_jzlka_driver_IOKit_driver_demo, IOService)
 static const char* g_demoName = "IOKit-driver";
 // The first instance method called on each instance of the driver class.
 // It's called only once on each instance.
-bool com_jzlka_driver_IOKit_driver_demo::init(OSDictionary *dict)
+bool com_test_driver_IOKit_driver_demo::init(OSDictionary *dict)
 {
     if (!super::init(dict)) {
         IOLog("%s demo: super::init() failed.\n", g_demoName);
@@ -34,7 +34,7 @@ bool com_jzlka_driver_IOKit_driver_demo::init(OSDictionary *dict)
 }
 
 // The last method called on any objects.
-void com_jzlka_driver_IOKit_driver_demo::free(void)
+void com_test_driver_IOKit_driver_demo::free(void)
 {
     IOLog("%s demo: Freeing\n", g_demoName);
     super::free();
@@ -42,7 +42,7 @@ void com_jzlka_driver_IOKit_driver_demo::free(void)
 
 // Called to communicate with hardware to determine wheter there is a match.
 // Leave the hardware in a good state  upon return for other probing drivers.
-IOService *com_jzlka_driver_IOKit_driver_demo::probe(IOService *provider,
+IOService *com_test_driver_IOKit_driver_demo::probe(IOService *provider,
     SInt32 *score)
 {
     IOService *result = super::probe(provider, score);
@@ -61,7 +61,7 @@ IOService *com_jzlka_driver_IOKit_driver_demo::probe(IOService *provider,
 
 // Place for driver to set up its functionality.
 // After it's called, the driver can begin routing I/O, publishing nubs, and vending services.
-bool com_jzlka_driver_IOKit_driver_demo::start(IOService *provider)
+bool com_test_driver_IOKit_driver_demo::start(IOService *provider)
 {
     if (!super::start(provider)) {
         IOLog("%s demo: super::start() failed.\n", g_demoName);
@@ -73,7 +73,7 @@ bool com_jzlka_driver_IOKit_driver_demo::start(IOService *provider)
 }
 
 // The first method called before the driver is unloaded. Clean up!
-void com_jzlka_driver_IOKit_driver_demo::stop(IOService *provider)
+void com_test_driver_IOKit_driver_demo::stop(IOService *provider)
 {
     IOLog("(%s) Goodbye, World!\n", g_demoName);
     IOLog("%s demo: Stopping\n", g_demoName);

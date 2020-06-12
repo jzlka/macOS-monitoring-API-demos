@@ -36,11 +36,11 @@
 			<key>CFBundleIdentifier</key>
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 			<key>IOClass</key>
-			<string>com_jzlka_driver_IOKit_driver_demo</string>
+			<string>com_test_driver_IOKit_driver_demo</string>
 			<key>IOKitDebug</key>
 			<integer>65535</integer>
 			<key>IOMatchCategory</key>
-			<string>com_jzlka_driver_IOKit_driver_demo</string>
+			<string>com_test_driver_IOKit_driver_demo</string>
 			<key>IOProviderClass</key>
 			<string>IOUSBDevice</string>
 			<key>idProduct</key>

@@ -7,9 +7,9 @@
 //
 
 #include <IOKit/IOService.h>
-class com_jzlka_driver_IOKit_driver_demo : public IOService
+class com_test_driver_IOKit_driver_demo : public IOService
 {
-OSDeclareDefaultStructors(com_jzlka_driver_IOKit_driver_demo)
+OSDeclareDefaultStructors(com_test_driver_IOKit_driver_demo)
 public:
     virtual bool init(OSDictionary *dictionary = 0) override;
     virtual void free(void) override;
