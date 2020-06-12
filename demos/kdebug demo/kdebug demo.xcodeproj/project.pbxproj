@@ -253,6 +253,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = "../../_apple-sources/xnu-6153.11.26/bsd/**";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.test.demo.kdebug-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx10.14;
 			};
@@ -266,6 +267,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = "../../_apple-sources/xnu-6153.11.26/bsd/**";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.test.demo.kdebug-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx10.14;
 			};

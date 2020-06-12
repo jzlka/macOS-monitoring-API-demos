@@ -28,16 +28,16 @@
 			<string>com.apple.kpi.iokit</string>
 			<key>IOClass</key>
 			<string>IOUserService</string>
-			<key>IOUserClass</key>
-			<string>dext_demo</string>
-			<key>IOUserServerName</key>
-			<string>com.apple.null.driver</string>
 			<key>IOMatchCategory</key>
 			<string>com.apple.null.driver</string>
 			<key>IOProviderClass</key>
 			<string>IOUserResources</string>
 			<key>IOResourceMatch</key>
 			<string>IOKit</string>
+			<key>IOUserClass</key>
+			<string>dext_demo</string>
+			<key>IOUserServerName</key>
+			<string>com.apple.null.driver</string>
 		</dict>
 	</dict>
 	<key>OSBundleUsageDescription</key>

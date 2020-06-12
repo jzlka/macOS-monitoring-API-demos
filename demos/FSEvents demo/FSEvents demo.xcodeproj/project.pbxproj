@@ -371,7 +371,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VN555WY3S4;
 				ENABLE_HARDENED_RUNTIME = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jzlka.idp.demo.fsevents-api";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.test.demo.fsevents-api-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -383,7 +383,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VN555WY3S4;
 				ENABLE_HARDENED_RUNTIME = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jzlka.idp.demo.fsevents-api";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.test.demo.fsevents-api-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

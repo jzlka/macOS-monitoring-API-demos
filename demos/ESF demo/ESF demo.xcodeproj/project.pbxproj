@@ -303,7 +303,7 @@
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				DEVELOPMENT_TEAM = FL9DKYD623;
 				ENABLE_HARDENED_RUNTIME = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jzlka.demo.esf-demo";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.test.demo.esf-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -319,7 +319,7 @@
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				DEVELOPMENT_TEAM = FL9DKYD623;
 				ENABLE_HARDENED_RUNTIME = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jzlka.demo.esf-demo";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.test.demo.esf-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

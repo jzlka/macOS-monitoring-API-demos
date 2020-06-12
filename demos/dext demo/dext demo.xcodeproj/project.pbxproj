@@ -13,7 +13,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		09C7A5F8248B82B400CBDCBE /* com.jzlka.dext-demo.dext */ = {isa = PBXFileReference; explicitFileType = "wrapper.driver-extension"; includeInIndex = 0; path = "com.jzlka.dext-demo.dext"; sourceTree = BUILT_PRODUCTS_DIR; };
+		09C7A5F8248B82B400CBDCBE /* com.test.dext-demo.dext */ = {isa = PBXFileReference; explicitFileType = "wrapper.driver-extension"; includeInIndex = 0; path = "com.test.dext-demo.dext"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09C7A5FB248B82B400CBDCBE /* DriverKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DriverKit.framework; path = Library/Frameworks/DriverKit.framework; sourceTree = DEVELOPER_DIR; };
 		09C7A5FE248B82B400CBDCBE /* dext_demo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = dext_demo.cpp; sourceTree = "<group>"; };
 		09C7A600248B82B400CBDCBE /* dext_demo.iig */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.iig; path = dext_demo.iig; sourceTree = "<group>"; };
@@ -46,7 +46,7 @@
 		09C7A5F9248B82B400CBDCBE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				09C7A5F8248B82B400CBDCBE /* com.jzlka.dext-demo.dext */,
+				09C7A5F8248B82B400CBDCBE /* com.test.dext-demo.dext */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -99,7 +99,7 @@
 			);
 			name = "dext demo";
 			productName = "dext demo";
-			productReference = 09C7A5F8248B82B400CBDCBE /* com.jzlka.dext-demo.dext */;
+			productReference = 09C7A5F8248B82B400CBDCBE /* com.test.dext-demo.dext */;
 			productType = "com.apple.product-type.driver-extension";
 		};
 /* End PBXNativeTarget section */
@@ -277,7 +277,7 @@
 					"$(SDKROOT)/System/DriverKit/System/Library/Frameworks",
 				);
 				INFOPLIST_FILE = "dext demo/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jzlka.dext-demo";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.test.dext-demo";
 				PRODUCT_NAME = "$(inherited)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -295,7 +295,7 @@
 					"$(SDKROOT)/System/DriverKit/System/Library/Frameworks",
 				);
 				INFOPLIST_FILE = "dext demo/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jzlka.dext-demo";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.test.dext-demo";
 				PRODUCT_NAME = "$(inherited)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;

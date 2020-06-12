@@ -310,7 +310,7 @@
 				MODULE_NAME = com.jzlka.macf_demo;
 				MODULE_VERSION = 1.0.0d1;
 				PRIVATE_HEADERS_FOLDER_PATH = "/Volumes/Data/Development/MacOSX10.12.sdk/System/Library/Frameworks/Kernel.framework/Contents/Headers/$(KEXT_FAMILY_NAME)";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jzlka.macf-demo";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.test.macf-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "/Volumes/Data/Development/MacOSX10.12.sdk/System/Library/Frameworks/Kernel.framework/Contents/Headers/$(KEXT_FAMILY_NAME)";
 				WRAPPER_EXTENSION = kext;
@@ -329,7 +329,7 @@
 				MODULE_NAME = com.jzlka.macf_demo;
 				MODULE_VERSION = 1.0.0d1;
 				PRIVATE_HEADERS_FOLDER_PATH = "/Volumes/Data/Development/MacOSX10.12.sdk/System/Library/Frameworks/Kernel.framework/Contents/Headers/$(KEXT_FAMILY_NAME)";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jzlka.macf-demo";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.test.macf-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "/Volumes/Data/Development/MacOSX10.12.sdk/System/Library/Frameworks/Kernel.framework/Contents/Headers/$(KEXT_FAMILY_NAME)";
 				WRAPPER_EXTENSION = kext;
