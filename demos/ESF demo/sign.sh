@@ -2,7 +2,7 @@
 APP=ESF-demo
 PATH_TO_APP="ESF demo"
 ENTITLEMENTS="ESF demo.entitlements"
-CERT_ID=-
+CERT_ID="-"
 
 echo "\n\n**** Previous entitlements of $APP ****"
 codesign -d --ent :-  "$PATH_TO_APP/$APP"
